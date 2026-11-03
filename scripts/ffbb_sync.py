@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import os
 import sys
 from datetime import date, datetime, timedelta, timezone
@@ -226,12 +227,38 @@ def _brief(o, depth=0):
     return {k: _brief(v, depth + 1) for k, v in list(items)[:25] if not str(k).startswith("_") and k not in ("membres", "engagements", "competitions")}
 
 
+# Ville des clubs adverses, ajoutée quand la FFBB ne donne que la salle et la rue
+VILLES = {"ALBERT": "80300 Albert", "BRAY": "80340 Bray-sur-Somme", "MONTDID": "80500 Montdidier",
+          "PERONNE": "80200 Péronne", "PÉRONNE": "80200 Péronne", "NESLOIS": "80190 Nesle", "NESLE": "80190 Nesle"}
+PETITS = {"de", "du", "des", "la", "le", "les", "et", "à", "au", "aux", "sur", "s/", "d'", "l'"}
+
+
+def pretty_place(s: str) -> str:
+    """« GYMNASE LAMARCK, CHEMIN CROISE DE LA JUSTICE » → « Gymnase Lamarck, Chemin Croise de la Justice »."""
+    def fix(part):
+        letters = [c for c in part if c.isalpha()]
+        if not letters or sum(c.isupper() for c in letters) < 0.6 * len(letters):
+            return part
+        words = part.lower().split(" ")
+        return " ".join(w if (i and w in PETITS) else (w[:1].upper() + w[1:]) for i, w in enumerate(words))
+    out = ", ".join(fix(p.strip()) for p in (s or "").split(","))
+    return out.replace("S/somme", "s/Somme").replace("Cces", "CCES")
+
+
+def complete_place(lieu: str, host: str) -> str:
+    if not lieu or re.search(r"\b\d{5}\b", lieu):
+        return lieu
+    for k, v in VILLES.items():
+        if k in host.upper():
+            return f"{lieu}, {v}"
+    return lieu
+
+
 def venue_from_match(client, mid):
     """Salle d'un match, d'après sa fiche détaillée FFBB."""
     try:
         r = client.get_rencontre(mid)
         s = g(r, "salle")
-        DIAG.setdefault("rencontre_salle", _brief(s))
         if isinstance(s, (str, int)):
             return salle_address(client, s, {})
         com = g(s, "commune")
@@ -336,12 +363,12 @@ def build_matches(client, org, poules: dict[int, str]):
             lieu = salle_address(client, g(m, "salle"), salle_cache)
             if home and not lieu:
                 lieu = HOME_HALL
-            DIAG.setdefault("poule_salle", _brief(g(m, "salle")))
-            DIAG.setdefault("poule_equipe1", _brief(r1))
             if not lieu:
                 lieu = venue_from_match(client, str(g(m, "id")))
             if not lieu:
                 lieu = club_info(client, o1).get("lieu")
+            if lieu and not home:
+                lieu = complete_place(pretty_place(lieu), e1)
             for oid_, nm_ in ((o1, e1), (o2, e2)):
                 if oid_ and not logos.get(oid_) and "ROISEL" not in nm_.upper():
                     ci = club_info(client, oid_)
