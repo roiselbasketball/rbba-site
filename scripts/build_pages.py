@@ -17,6 +17,8 @@ MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août
 
 
 def nice(name: str) -> str:
+    name = re.sub(r"\s*\([^)]*\)", "", str(name or ""))
+    name = re.sub(r"\s+-\s+(\d+)$", r" \1", name)
     s = re.sub(r"(^|[\s\-'’])(\w)", lambda m: m.group(1) + m.group(2).upper(), str(name or "").lower())
     return re.sub(r"\b(Ca|Us|Uso|Bb|Bc|Es|As|Rbba)\b", lambda m: m.group(0).upper(), s)
 

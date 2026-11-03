@@ -14,7 +14,7 @@
   }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function nice(name) {
-    return String(name || "").toLowerCase().replace(/(^|[\s\-'’])([a-zàâçéèêëîïôûùüÿñæœ])/g, function (m, a, b) { return a + b.toUpperCase(); })
+    return String(name || "").replace(/\s*\([^)]*\)/g, "").replace(/\s+-\s+(\d+)$/, " $1").toLowerCase().replace(/(^|[\s\-'’])([a-zàâçéèêëîïôûùüÿñæœ])/g, function (m, a, b) { return a + b.toUpperCase(); })
       .replace(/\b(Ca|Us|Uso|Bb|Bc|Es|As|Rbba)\b/g, function (m) { return m.toUpperCase(); });
   }
   // nom court pour les titres de score : « Basket Ball Neslois » → « Neslois », « Roisel Basketball » → « RBBA »

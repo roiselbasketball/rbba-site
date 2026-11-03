@@ -212,6 +212,30 @@ def logo_path(oid: str, logo_id: str | None, name: str) -> str | None:
     return f"data/logos/{oid}.png" if dest.exists() else None
 
 
+_club_cache: dict = {}
+
+
+def club_info(client, oid: str) -> dict:
+    """Logo et salle d'un club adverse, d'après sa fiche FFBB (mise en cache)."""
+    if not oid or oid in _club_cache:
+        return _club_cache.get(oid, {})
+    info = {}
+    try:
+        o = client.get_organisme(int(oid))
+        lg = g(o, "logo")
+        info["logo_id"] = g(lg, "id") if lg is not None and not isinstance(lg, (str, int)) else lg
+        s = g(o, "salle")
+        com = g(s, "commune") or g(o, "commune")
+        cp = str(g(s, "codePostal", "code_postal", default="") or g(com, "codePostal", "code_postal", default="") or "")
+        ville = str(g(s, "ville", default="") or g(com, "libelle", default="") or "")
+        parts = [g(s, "libelle", "nom"), g(s, "adresse"), " ".join(x for x in [cp, ville] if x).strip()]
+        info["lieu"] = ", ".join(str(x) for x in parts if x) or None
+    except Exception:
+        pass
+    _club_cache[oid] = info
+    return info
+
+
 def build_matches(client, org, poules: dict[int, str]):
     club_id = str(g(org, "id"))
     club_nom = str(g(org, "nom", default="ROISEL")).upper()
@@ -277,6 +301,13 @@ def build_matches(client, org, poules: dict[int, str]):
             lieu = salle_address(client, g(m, "salle"), salle_cache)
             if home and not lieu:
                 lieu = HOME_HALL
+            if not lieu:
+                lieu = club_info(client, o1).get("lieu")
+            for oid_, nm_ in ((o1, e1), (o2, e2)):
+                if oid_ and not logos.get(oid_) and "ROISEL" not in nm_.upper():
+                    ci = club_info(client, oid_)
+                    if ci.get("logo_id"):
+                        logos[oid_] = logo_path(oid_, ci["logo_id"], nm_)
             mid = str(g(m, "id"))
             matches.append({
                 "id": mid,
@@ -299,6 +330,14 @@ def build_matches(client, org, poules: dict[int, str]):
                 "source": "ffbb",
             })
     matches.sort(key=lambda x: x["coupEnvoi"] or "9999")
+    by_name = {}
+    for m in matches:
+        by_name[m["equipeDomicile"].upper()] = m.get("logoDomicile")
+        by_name[m["equipeExterieur"].upper()] = m.get("logoExterieur")
+    for p in rankings:
+        for r in p["lignes"]:
+            if not r.get("logo"):
+                r["logo"] = by_name.get(str(r["equipe"]).upper()) or by_name.get(str(r["equipe"]).upper() + " - 2")
     return matches, finalize_rankings(rankings, club_id)
 
 

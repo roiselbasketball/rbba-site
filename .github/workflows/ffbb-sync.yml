@@ -5,6 +5,8 @@ name: Données FFBB
 on:
   schedule:
     - cron: "*/5 * * * *"
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       force:
@@ -41,11 +43,11 @@ jobs:
       - name: Récupérer les données
         id: sync
         env:
-          RBBA_SITE_URL: ${{ vars.RBBA_SITE_URL }}
+          RBBA_SITE_URL: ${{ vars.RBBA_SITE_URL || 'https://roiselbasketball.github.io/rbba-site' }}
           RBBA_ORGANISME_ID: ${{ vars.RBBA_ORGANISME_ID }}
         run: |
           set +e
-          python scripts/ffbb_sync.py ${{ (github.event_name == 'workflow_dispatch' && inputs.force) && '--force' || '' }}
+          python scripts/ffbb_sync.py ${{ (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.force)) && '--force' || '' }}
           code=$?
           echo "code=$code" >> "$GITHUB_OUTPUT"
           [ "$code" = "1" ] && exit 1 || exit 0
@@ -61,13 +63,13 @@ jobs:
 
       # Mise en ligne du site (GitHub Pages) quand les données ont changé
       - uses: actions/configure-pages@v5
-        if: steps.commit.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
       - uses: actions/upload-pages-artifact@v3
-        if: steps.commit.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
         with:
           path: .
       - uses: actions/deploy-pages@v4
-        if: steps.commit.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
 
       # Plus de 24 h sans données : alerte au référent (ticket = e-mail automatique de GitHub)
       - name: Alerte
