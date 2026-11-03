@@ -1,0 +1,6 @@
+{
+  "_aide": "Photos du site. Déposer les images dans assets/photos/ (format JPG ou WebP, 1600 px de large maximum), puis relancer python3 scripts/build_site.py. Uniquement des photos avec autorisation de droit à l'image.",
+  "credit": "Georgia Lécuyer",
+  "bandeau": "",
+  "accueil": []
+}

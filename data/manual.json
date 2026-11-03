@@ -1,0 +1,10 @@
+{
+  "_aide": "Secours : saisir ici un score ou un match si les données FFBB ne remontent pas. Reprendre l'id du match (dans matchs.json) pour corriger un match existant. Supprimer l'entrée quand la FFBB est de nouveau à jour.",
+  "_exemple": {
+    "id": "123456",
+    "joue": true,
+    "scoreDomicile": 68,
+    "scoreExterieur": 61
+  },
+  "matchs": []
+}
