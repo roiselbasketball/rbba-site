@@ -347,7 +347,7 @@ abbr[title]{text-decoration:none;cursor:help}
 .ih-ico{width:18px;height:18px;vertical-align:-3px;color:#1A73E8}
 .ih-close{justify-self:start}
 @media (max-width:560px){
-  .hdr:has(.install-btn:not([hidden])) .brand span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .hdr .brand span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .hdr .wrap{gap:10px}
   .tools{gap:6px}
 }

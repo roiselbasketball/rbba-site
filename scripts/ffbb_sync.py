@@ -213,6 +213,33 @@ def logo_path(oid: str, logo_id: str | None, name: str) -> str | None:
 
 
 _club_cache: dict = {}
+DIAG: dict = {}
+
+
+def _brief(o, depth=0):
+    """Aperçu des champs d'un objet FFBB (diagnostic, sans données personnelles)."""
+    if depth > 2 or o is None: return repr(o)[:80]
+    if isinstance(o, (str, int, float, bool)): return o if not isinstance(o, str) else o[:80]
+    if isinstance(o, dict): items = o.items()
+    elif hasattr(o, "__dict__"): items = vars(o).items()
+    else: return repr(o)[:80]
+    return {k: _brief(v, depth + 1) for k, v in list(items)[:25] if not str(k).startswith("_") and k not in ("membres", "engagements", "competitions")}
+
+
+def venue_from_match(client, mid):
+    """Salle d'un match, d'après sa fiche détaillée FFBB."""
+    try:
+        r = client.get_rencontre(mid)
+        s = g(r, "salle")
+        DIAG.setdefault("rencontre_salle", _brief(s))
+        if isinstance(s, (str, int)):
+            return salle_address(client, s, {})
+        com = g(s, "commune")
+        parts = [g(s, "libelle", "nom"), g(s, "adresse"), " ".join(str(x) for x in [g(s, "codePostal", "cp", default="") or g(com, "codePostal", "code_postal", default=""), g(s, "ville", default="") or g(com, "libelle", default="")] if x).strip()]
+        return ", ".join(str(x) for x in parts if x) or salle_address(client, g(s, "id"), {})
+    except Exception as exc:
+        DIAG.setdefault("rencontre_err", str(exc)[:200])
+        return None
 
 
 def club_info(client, oid: str) -> dict:
@@ -230,8 +257,9 @@ def club_info(client, oid: str) -> dict:
         ville = str(g(s, "ville", default="") or g(com, "libelle", default="") or "")
         parts = [g(s, "libelle", "nom"), g(s, "adresse"), " ".join(x for x in [cp, ville] if x).strip()]
         info["lieu"] = ", ".join(str(x) for x in parts if x) or None
-    except Exception:
-        pass
+    except Exception as exc:
+        DIAG.setdefault("club_err", str(exc)[:200])
+    DIAG.setdefault("club_info", info)
     _club_cache[oid] = info
     return info
 
@@ -308,6 +336,10 @@ def build_matches(client, org, poules: dict[int, str]):
             lieu = salle_address(client, g(m, "salle"), salle_cache)
             if home and not lieu:
                 lieu = HOME_HALL
+            DIAG.setdefault("poule_salle", _brief(g(m, "salle")))
+            DIAG.setdefault("poule_equipe1", _brief(r1))
+            if not lieu:
+                lieu = venue_from_match(client, str(g(m, "id")))
             if not lieu:
                 lieu = club_info(client, o1).get("lieu")
             for oid_, nm_ in ((o1, e1), (o2, e2)):
@@ -577,6 +609,8 @@ def run(client=None, force=False) -> int:
         print(f"Pages de match non générées : {exc}", file=sys.stderr)
 
     last_ok = status.get("derniereReussite")
+    if DIAG:
+        status["diagnostic"] = DIAG
     status["alerte"] = (not last_ok) or (now - datetime.fromisoformat(last_ok) > timedelta(hours=24))
     save_json(DATA / "status.json", status)
     print(f"OK – {len(matches)} matchs, source {status['source']}, rythme : {mode}")

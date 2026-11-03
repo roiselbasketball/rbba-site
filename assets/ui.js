@@ -23,23 +23,27 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();
 
-/* RBBA – bouton « Installer l'appli » : invite native sur Android, mode d'emploi sur iPhone. */
+/* RBBA – bouton « Installer l'appli » : toujours visible (sauf appli déjà installée).
+   Android/Chrome : fenêtre officielle d'installation. iPhone et autres : mode d'emploi. */
 (function () {
   "use strict";
   var standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
-  if (standalone) return; // déjà installée : rien à proposer
   var ua = navigator.userAgent;
   var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   var deferred = null;
+  addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; });
   function boot() {
     var btn = document.querySelector(".install-btn"), help = document.getElementById("install-help");
     if (!btn) return;
-    if (ios && help) btn.hidden = false; // Safari iPhone : mode d'emploi
-    addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; btn.hidden = false; }); // Android / Chrome
-    addEventListener("appinstalled", function () { btn.hidden = true; });
+    if (standalone) { btn.hidden = true; return; }
+    addEventListener("appinstalled", function () { btn.hidden = true; if (help) help.hidden = true; });
+    if (help) {
+      help.querySelector(".ih-ios").hidden = !ios;
+      help.querySelector(".ih-android").hidden = ios;
+    }
     function open(o) { help.hidden = !o; btn.setAttribute("aria-expanded", o); if (o) help.querySelector(".ih-close").focus(); else btn.focus(); }
     btn.addEventListener("click", function () {
-      if (deferred) { deferred.prompt(); deferred.userChoice.then(function () { deferred = null; btn.hidden = true; }); return; }
+      if (deferred) { deferred.prompt(); deferred.userChoice.then(function (c) { deferred = null; if (c && c.outcome === "accepted") btn.hidden = true; }); return; }
       if (help) open(help.hidden);
     });
     if (help) {

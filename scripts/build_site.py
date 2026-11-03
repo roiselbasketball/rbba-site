@@ -68,7 +68,7 @@ def header(cur, p=""):
     <a class="brand" href="{p}index.html"><img src="{p}assets/logo.webp" alt="" width="52" height="48"><span>Roisel Basketball<small>RBBA · Seniors DM2</small></span></a>
     <nav class="nav" id="nav" aria-label="Navigation principale">{links}</nav>
     <div class="tools">
-      <button class="install-btn" type="button" aria-haspopup="dialog" aria-controls="install-help" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg><span>Installer l'appli</span></button>
+      <button class="install-btn" type="button" aria-haspopup="dialog" aria-controls="install-help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg><span>Installer l'appli</span></button>
       <button class="ibtn a11y-btn" type="button" aria-haspopup="dialog" aria-controls="a11y" aria-expanded="false" aria-label="Accessibilité"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8" fill="currentColor" stroke="none"/><path d="M5 8.5l7 1.5 7-1.5M12 10v4.5M12 14.5l-3.5 6M12 14.5l3.5 6"/></svg></button>
       <button class="ibtn menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
@@ -76,10 +76,15 @@ def header(cur, p=""):
 </header>
 <div class="install-help" id="install-help" role="dialog" aria-labelledby="ih-title" hidden>
   <h2 id="ih-title">Ajouter le RBBA à l'écran d'accueil</h2>
-  <ol class="steps">
+  <ol class="steps ih-ios">
     <li>Touchez le bouton <strong>Partager</strong> <svg class="ih-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 11v9h14v-9"/></svg><span>En bas de l'écran dans Safari</span></li>
     <li>Choisissez <strong>Sur l'écran d'accueil</strong><span>Faites défiler la liste si besoin</span></li>
     <li>Touchez <strong>Ajouter</strong><span>L'icône RBBA apparaît avec vos applis</span></li>
+  </ol>
+  <ol class="steps ih-android" hidden>
+    <li>Touchez le menu <strong>⋮</strong><span>En haut à droite dans Chrome</span></li>
+    <li>Choisissez <strong>Ajouter à l'écran d'accueil</strong><span>Ou « Installer l'application »</span></li>
+    <li>Touchez <strong>Installer</strong><span>L'icône RBBA apparaît avec vos applis</span></li>
   </ol>
   <button class="btn btn--dark ih-close" type="button">Compris</button>
 </div>
