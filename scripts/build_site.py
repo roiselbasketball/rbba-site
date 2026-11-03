@@ -148,6 +148,8 @@ def home():
     <section aria-labelledby="h-std"><div class="head"><h2 id="h-std">Classement DM2</h2><a class="more" href="matchs.html#classement"><span class="lg">Classement complet</span><span class="sm">Complet</span></a></div><div id="standings"></div></section>
   </div>
 
+  {social()}
+
   <section class="block wrap" id="licences" aria-labelledby="h-lic">
     <div class="head"><h2 id="h-lic">Licences 2026-2027</h2></div>
     <div class="offers">
@@ -174,7 +176,6 @@ def home():
   </section>
 
 {gallery()}
-  {social()}
 
   <section class="block wrap" id="partenaires" aria-labelledby="h-sp">
     <div class="head"><h2 id="h-sp">Partenaires</h2></div>
