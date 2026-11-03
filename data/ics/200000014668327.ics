@@ -26,15 +26,16 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:ffbb-200000014668327@roisel-basketball
-DTSTAMP:20261103T232040Z
+DTSTAMP:20261103T232256Z
 SEQUENCE:0
 DTSTART;TZID=Europe/Paris:20261205T203000
 DTEND;TZID=Europe/Paris:20261205T223000
 SUMMARY:ROISEL BASKETBALL (BBALL) – USO ALBERT AVIATION - 2
 LOCATION:Gymnase de Roisel\, 48 Rue de Cambrai\, 80240 Roisel
 DESCRIPTION:Départementale masculine seniors - Division 2 – journée 6\n
- Infos et itinéraire : /matchs/200000014668327/
-URL:/matchs/200000014668327/
+ Infos et itinéraire : https://roiselbasketball.github.io/rbba-site/matchs
+ /200000014668327/
+URL:https://roiselbasketball.github.io/rbba-site/matchs/200000014668327/
 BEGIN:VALARM
 ACTION:DISPLAY
 TRIGGER:-P1D

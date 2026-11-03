@@ -26,15 +26,16 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:ffbb-200000014668315@roisel-basketball
-DTSTAMP:20261103T232040Z
+DTSTAMP:20261103T232256Z
 SEQUENCE:0
 DTSTART;TZID=Europe/Paris:20261114T210000
 DTEND;TZID=Europe/Paris:20261114T230000
 SUMMARY:BRAY BASKET BALL – ROISEL BASKETBALL (BBALL)
 LOCATION:Lieu à confirmer
 DESCRIPTION:Départementale masculine seniors - Division 2 – journée 4\n
- Infos et itinéraire : /matchs/200000014668315/
-URL:/matchs/200000014668315/
+ Infos et itinéraire : https://roiselbasketball.github.io/rbba-site/matchs
+ /200000014668315/
+URL:https://roiselbasketball.github.io/rbba-site/matchs/200000014668315/
 BEGIN:VALARM
 ACTION:DISPLAY
 TRIGGER:-P1D

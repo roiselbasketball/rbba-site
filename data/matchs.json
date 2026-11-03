@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-04T00:20:40.703945+01:00",
+  "miseAJour": "2026-11-04T00:22:56.642352+01:00",
   "matchs": [
     {
       "id": "200000014668297",
@@ -18,7 +18,7 @@
       "scoreExterieur": 69,
       "lieu": "Lieu à confirmer",
       "itineraire": null,
-      "page": "/matchs/200000014668297/",
+      "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668297/",
       "source": "ffbb"
     },
     {
@@ -42,7 +42,7 @@
         "apple": "https://maps.apple.com/?daddr=49.952727,3.103363&q=Gymnase%20de%20Roisel",
         "waze": "https://waze.com/ul?ll=49.952727,3.103363&navigate=yes"
       },
-      "page": "/matchs/200000014668303/",
+      "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668303/",
       "source": "ffbb"
     },
     {
@@ -62,7 +62,7 @@
       "scoreExterieur": null,
       "lieu": "Lieu à confirmer",
       "itineraire": null,
-      "page": "/matchs/200000014668315/",
+      "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668315/",
       "source": "ffbb"
     },
     {
@@ -86,7 +86,7 @@
         "apple": "https://maps.apple.com/?daddr=49.952727,3.103363&q=Gymnase%20de%20Roisel",
         "waze": "https://waze.com/ul?ll=49.952727,3.103363&navigate=yes"
       },
-      "page": "/matchs/200000014668321/",
+      "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668321/",
       "source": "ffbb"
     },
     {
@@ -110,7 +110,7 @@
         "apple": "https://maps.apple.com/?daddr=49.952727,3.103363&q=Gymnase%20de%20Roisel",
         "waze": "https://waze.com/ul?ll=49.952727,3.103363&navigate=yes"
       },
-      "page": "/matchs/200000014668309/",
+      "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668309/",
       "source": "ffbb"
     },
     {
@@ -134,7 +134,7 @@
         "apple": "https://maps.apple.com/?daddr=49.952727,3.103363&q=Gymnase%20de%20Roisel",
         "waze": "https://waze.com/ul?ll=49.952727,3.103363&navigate=yes"
       },
-      "page": "/matchs/200000014668327/",
+      "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668327/",
       "source": "ffbb"
     },
     {
@@ -154,7 +154,7 @@
       "scoreExterieur": null,
       "lieu": "Lieu à confirmer",
       "itineraire": null,
-      "page": "/matchs/200000014668333/",
+      "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668333/",
       "source": "ffbb"
     },
     {
@@ -178,7 +178,7 @@
         "apple": "https://maps.apple.com/?daddr=49.952727,3.103363&q=Gymnase%20de%20Roisel",
         "waze": "https://waze.com/ul?ll=49.952727,3.103363&navigate=yes"
       },
-      "page": "/matchs/200000014872555/",
+      "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014872555/",
       "source": "ffbb"
     },
     {
@@ -198,7 +198,7 @@
       "scoreExterieur": null,
       "lieu": "Lieu à confirmer",
       "itineraire": null,
-      "page": "/matchs/200000014668339/",
+      "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668339/",
       "source": "ffbb"
     },
     {
@@ -222,7 +222,7 @@
         "apple": "https://maps.apple.com/?daddr=49.952727,3.103363&q=Gymnase%20de%20Roisel",
         "waze": "https://waze.com/ul?ll=49.952727,3.103363&navigate=yes"
       },
-      "page": "/matchs/200000014668345/",
+      "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668345/",
       "source": "ffbb"
     },
     {
@@ -242,7 +242,7 @@
       "scoreExterieur": null,
       "lieu": "Lieu à confirmer",
       "itineraire": null,
-      "page": "/matchs/200000014668351/",
+      "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668351/",
       "source": "ffbb"
     }
   ]

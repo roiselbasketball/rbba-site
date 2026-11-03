@@ -26,15 +26,16 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:ffbb-200000014668309@roisel-basketball
-DTSTAMP:20261103T232040Z
+DTSTAMP:20261103T232256Z
 SEQUENCE:0
 DTSTART;TZID=Europe/Paris:20261128T203000
 DTEND;TZID=Europe/Paris:20261128T223000
 SUMMARY:ROISEL BASKETBALL (BBALL) – CA PERONNE BASKET BALL
 LOCATION:Gymnase de Roisel\, 48 Rue de Cambrai\, 80240 Roisel
 DESCRIPTION:Départementale masculine seniors - Division 2 – journée 3\n
- Infos et itinéraire : /matchs/200000014668309/
-URL:/matchs/200000014668309/
+ Infos et itinéraire : https://roiselbasketball.github.io/rbba-site/matchs
+ /200000014668309/
+URL:https://roiselbasketball.github.io/rbba-site/matchs/200000014668309/
 BEGIN:VALARM
 ACTION:DISPLAY
 TRIGGER:-P1D
