@@ -1,10 +1,15 @@
 {
-  "derniereTentative": "2026-11-04T00:40:22.802650+01:00",
+  "derniereTentative": "2026-11-04T00:49:10.374549+01:00",
   "rythme": "hors match (toutes les heures)",
   "club": "ROISEL BASKETBALL (BBALL)",
   "organismeId": "200000002678267",
   "source": "ffbb",
-  "derniereReussite": "2026-11-04T00:40:22.802650+01:00",
+  "derniereReussite": "2026-11-04T00:49:10.374549+01:00",
   "erreur": null,
-  "alerte": false
+  "alerte": false,
+  "diagnostic": {
+    "poule_salle": "None",
+    "poule_equipe1": "None",
+    "rencontre_salle": "891001002620"
+  }
 }

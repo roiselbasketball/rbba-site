@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-04T00:40:22.802650+01:00",
+  "miseAJour": "2026-11-04T00:49:10.374549+01:00",
   "matchs": [
     {
       "id": "200000014668297",
@@ -16,8 +16,12 @@
       "joue": true,
       "scoreDomicile": 55,
       "scoreExterieur": 69,
-      "lieu": "Lieu à confirmer",
-      "itineraire": null,
+      "lieu": "GYMNASE LAMARCK, CHEMIN CROISE DE LA JUSTICE",
+      "itineraire": {
+        "google": "https://www.google.com/maps/dir/?api=1&destination=GYMNASE%20LAMARCK%2C%20CHEMIN%20CROISE%20DE%20LA%20JUSTICE",
+        "apple": "https://maps.apple.com/?daddr=GYMNASE%20LAMARCK%2C%20CHEMIN%20CROISE%20DE%20LA%20JUSTICE",
+        "waze": "https://waze.com/ul?q=GYMNASE%20LAMARCK%2C%20CHEMIN%20CROISE%20DE%20LA%20JUSTICE&navigate=yes"
+      },
       "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668297/",
       "source": "ffbb"
     },
@@ -60,8 +64,12 @@
       "joue": false,
       "scoreDomicile": null,
       "scoreExterieur": null,
-      "lieu": "Lieu à confirmer",
-      "itineraire": null,
+      "lieu": "SALLE OMNISPORTS de BRAY S/SOMME, RUE DU PRES BAUDET",
+      "itineraire": {
+        "google": "https://www.google.com/maps/dir/?api=1&destination=SALLE%20OMNISPORTS%20de%20BRAY%20S/SOMME%2C%20RUE%20DU%20PRES%20BAUDET",
+        "apple": "https://maps.apple.com/?daddr=SALLE%20OMNISPORTS%20de%20BRAY%20S/SOMME%2C%20RUE%20DU%20PRES%20BAUDET",
+        "waze": "https://waze.com/ul?q=SALLE%20OMNISPORTS%20de%20BRAY%20S/SOMME%2C%20RUE%20DU%20PRES%20BAUDET&navigate=yes"
+      },
       "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668315/",
       "source": "ffbb"
     },
@@ -152,8 +160,12 @@
       "joue": false,
       "scoreDomicile": null,
       "scoreExterieur": null,
-      "lieu": "Lieu à confirmer",
-      "itineraire": null,
+      "lieu": "GYMNASE HANDISPORT, Pasteur",
+      "itineraire": {
+        "google": "https://www.google.com/maps/dir/?api=1&destination=GYMNASE%20HANDISPORT%2C%20Pasteur",
+        "apple": "https://maps.apple.com/?daddr=GYMNASE%20HANDISPORT%2C%20Pasteur",
+        "waze": "https://waze.com/ul?q=GYMNASE%20HANDISPORT%2C%20Pasteur&navigate=yes"
+      },
       "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668333/",
       "source": "ffbb"
     },
@@ -196,8 +208,12 @@
       "joue": false,
       "scoreDomicile": null,
       "scoreExterieur": null,
-      "lieu": "Lieu à confirmer",
-      "itineraire": null,
+      "lieu": "SALLE MUNICIPALE, ROUTE DE SAINT DENIS",
+      "itineraire": {
+        "google": "https://www.google.com/maps/dir/?api=1&destination=SALLE%20MUNICIPALE%2C%20ROUTE%20DE%20SAINT%20DENIS",
+        "apple": "https://maps.apple.com/?daddr=SALLE%20MUNICIPALE%2C%20ROUTE%20DE%20SAINT%20DENIS",
+        "waze": "https://waze.com/ul?q=SALLE%20MUNICIPALE%2C%20ROUTE%20DE%20SAINT%20DENIS&navigate=yes"
+      },
       "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668339/",
       "source": "ffbb"
     },
@@ -240,8 +256,12 @@
       "joue": false,
       "scoreDomicile": null,
       "scoreExterieur": null,
-      "lieu": "Lieu à confirmer",
-      "itineraire": null,
+      "lieu": "GYMNASE INTERCOMMUNAL CCES, Boulevard PASTEUR",
+      "itineraire": {
+        "google": "https://www.google.com/maps/dir/?api=1&destination=GYMNASE%20INTERCOMMUNAL%20CCES%2C%20Boulevard%20PASTEUR",
+        "apple": "https://maps.apple.com/?daddr=GYMNASE%20INTERCOMMUNAL%20CCES%2C%20Boulevard%20PASTEUR",
+        "waze": "https://waze.com/ul?q=GYMNASE%20INTERCOMMUNAL%20CCES%2C%20Boulevard%20PASTEUR&navigate=yes"
+      },
       "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668351/",
       "source": "ffbb"
     }
