@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-04T00:49:10.374549+01:00",
+  "miseAJour": "2026-11-04T00:50:14.236753+01:00",
   "matchs": [
     {
       "id": "200000014668297",
@@ -16,11 +16,11 @@
       "joue": true,
       "scoreDomicile": 55,
       "scoreExterieur": 69,
-      "lieu": "GYMNASE LAMARCK, CHEMIN CROISE DE LA JUSTICE",
+      "lieu": "Gymnase Lamarck, Chemin Croise de la Justice, 80300 Albert",
       "itineraire": {
-        "google": "https://www.google.com/maps/dir/?api=1&destination=GYMNASE%20LAMARCK%2C%20CHEMIN%20CROISE%20DE%20LA%20JUSTICE",
-        "apple": "https://maps.apple.com/?daddr=GYMNASE%20LAMARCK%2C%20CHEMIN%20CROISE%20DE%20LA%20JUSTICE",
-        "waze": "https://waze.com/ul?q=GYMNASE%20LAMARCK%2C%20CHEMIN%20CROISE%20DE%20LA%20JUSTICE&navigate=yes"
+        "google": "https://www.google.com/maps/dir/?api=1&destination=Gymnase%20Lamarck%2C%20Chemin%20Croise%20de%20la%20Justice%2C%2080300%20Albert",
+        "apple": "https://maps.apple.com/?daddr=Gymnase%20Lamarck%2C%20Chemin%20Croise%20de%20la%20Justice%2C%2080300%20Albert",
+        "waze": "https://waze.com/ul?q=Gymnase%20Lamarck%2C%20Chemin%20Croise%20de%20la%20Justice%2C%2080300%20Albert&navigate=yes"
       },
       "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668297/",
       "source": "ffbb"
@@ -64,11 +64,11 @@
       "joue": false,
       "scoreDomicile": null,
       "scoreExterieur": null,
-      "lieu": "SALLE OMNISPORTS de BRAY S/SOMME, RUE DU PRES BAUDET",
+      "lieu": "Salle Omnisports de Bray s/Somme, Rue du Pres Baudet, 80340 Bray-sur-Somme",
       "itineraire": {
-        "google": "https://www.google.com/maps/dir/?api=1&destination=SALLE%20OMNISPORTS%20de%20BRAY%20S/SOMME%2C%20RUE%20DU%20PRES%20BAUDET",
-        "apple": "https://maps.apple.com/?daddr=SALLE%20OMNISPORTS%20de%20BRAY%20S/SOMME%2C%20RUE%20DU%20PRES%20BAUDET",
-        "waze": "https://waze.com/ul?q=SALLE%20OMNISPORTS%20de%20BRAY%20S/SOMME%2C%20RUE%20DU%20PRES%20BAUDET&navigate=yes"
+        "google": "https://www.google.com/maps/dir/?api=1&destination=Salle%20Omnisports%20de%20Bray%20s/Somme%2C%20Rue%20du%20Pres%20Baudet%2C%2080340%20Bray-sur-Somme",
+        "apple": "https://maps.apple.com/?daddr=Salle%20Omnisports%20de%20Bray%20s/Somme%2C%20Rue%20du%20Pres%20Baudet%2C%2080340%20Bray-sur-Somme",
+        "waze": "https://waze.com/ul?q=Salle%20Omnisports%20de%20Bray%20s/Somme%2C%20Rue%20du%20Pres%20Baudet%2C%2080340%20Bray-sur-Somme&navigate=yes"
       },
       "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668315/",
       "source": "ffbb"
@@ -160,11 +160,11 @@
       "joue": false,
       "scoreDomicile": null,
       "scoreExterieur": null,
-      "lieu": "GYMNASE HANDISPORT, Pasteur",
+      "lieu": "Gymnase Handisport, Pasteur, 80500 Montdidier",
       "itineraire": {
-        "google": "https://www.google.com/maps/dir/?api=1&destination=GYMNASE%20HANDISPORT%2C%20Pasteur",
-        "apple": "https://maps.apple.com/?daddr=GYMNASE%20HANDISPORT%2C%20Pasteur",
-        "waze": "https://waze.com/ul?q=GYMNASE%20HANDISPORT%2C%20Pasteur&navigate=yes"
+        "google": "https://www.google.com/maps/dir/?api=1&destination=Gymnase%20Handisport%2C%20Pasteur%2C%2080500%20Montdidier",
+        "apple": "https://maps.apple.com/?daddr=Gymnase%20Handisport%2C%20Pasteur%2C%2080500%20Montdidier",
+        "waze": "https://waze.com/ul?q=Gymnase%20Handisport%2C%20Pasteur%2C%2080500%20Montdidier&navigate=yes"
       },
       "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668333/",
       "source": "ffbb"
@@ -208,11 +208,11 @@
       "joue": false,
       "scoreDomicile": null,
       "scoreExterieur": null,
-      "lieu": "SALLE MUNICIPALE, ROUTE DE SAINT DENIS",
+      "lieu": "Salle Municipale, Route de Saint Denis, 80200 Péronne",
       "itineraire": {
-        "google": "https://www.google.com/maps/dir/?api=1&destination=SALLE%20MUNICIPALE%2C%20ROUTE%20DE%20SAINT%20DENIS",
-        "apple": "https://maps.apple.com/?daddr=SALLE%20MUNICIPALE%2C%20ROUTE%20DE%20SAINT%20DENIS",
-        "waze": "https://waze.com/ul?q=SALLE%20MUNICIPALE%2C%20ROUTE%20DE%20SAINT%20DENIS&navigate=yes"
+        "google": "https://www.google.com/maps/dir/?api=1&destination=Salle%20Municipale%2C%20Route%20de%20Saint%20Denis%2C%2080200%20P%C3%A9ronne",
+        "apple": "https://maps.apple.com/?daddr=Salle%20Municipale%2C%20Route%20de%20Saint%20Denis%2C%2080200%20P%C3%A9ronne",
+        "waze": "https://waze.com/ul?q=Salle%20Municipale%2C%20Route%20de%20Saint%20Denis%2C%2080200%20P%C3%A9ronne&navigate=yes"
       },
       "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668339/",
       "source": "ffbb"
@@ -256,11 +256,11 @@
       "joue": false,
       "scoreDomicile": null,
       "scoreExterieur": null,
-      "lieu": "GYMNASE INTERCOMMUNAL CCES, Boulevard PASTEUR",
+      "lieu": "Gymnase Intercommunal CCES, Boulevard PASTEUR, 80190 Nesle",
       "itineraire": {
-        "google": "https://www.google.com/maps/dir/?api=1&destination=GYMNASE%20INTERCOMMUNAL%20CCES%2C%20Boulevard%20PASTEUR",
-        "apple": "https://maps.apple.com/?daddr=GYMNASE%20INTERCOMMUNAL%20CCES%2C%20Boulevard%20PASTEUR",
-        "waze": "https://waze.com/ul?q=GYMNASE%20INTERCOMMUNAL%20CCES%2C%20Boulevard%20PASTEUR&navigate=yes"
+        "google": "https://www.google.com/maps/dir/?api=1&destination=Gymnase%20Intercommunal%20CCES%2C%20Boulevard%20PASTEUR%2C%2080190%20Nesle",
+        "apple": "https://maps.apple.com/?daddr=Gymnase%20Intercommunal%20CCES%2C%20Boulevard%20PASTEUR%2C%2080190%20Nesle",
+        "waze": "https://waze.com/ul?q=Gymnase%20Intercommunal%20CCES%2C%20Boulevard%20PASTEUR%2C%2080190%20Nesle&navigate=yes"
       },
       "page": "https://roiselbasketball.github.io/rbba-site/matchs/200000014668351/",
       "source": "ffbb"
