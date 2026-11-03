@@ -18,6 +18,8 @@ PHOTOS = _json.loads((ROOT / "data" / "photos.json").read_text(encoding="utf-8")
 # Liens des réseaux du club : la section s'affiche dès qu'au moins un lien est renseigné
 INSTAGRAM = "https://www.instagram.com/roiselbasketball/"
 FACEBOOK = "https://www.facebook.com/share/18sTYZXxJF/"
+# Flux Instagram (Behold) : identifiant du flux
+BEHOLD = "quMGqyDE08fF7hLVtnYc"
 IG_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>'
 FB_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8v3h2.6V21h2.9z"/></svg>'
 
@@ -26,8 +28,12 @@ def social():
     links = []
     if INSTAGRAM: links.append(f'<a href="{INSTAGRAM}" target="_blank" rel="noopener">{IG_SVG}<span>Instagram<small>Photos et affiches de match</small></span></a>')
     if FACEBOOK: links.append(f'<a href="{FACEBOOK}" target="_blank" rel="noopener">{FB_SVG}<span>Facebook<small>Résultats et infos du club</small></span></a>')
-    if not links: return ""
-    return '<section class="block wrap" id="reseaux" aria-labelledby="h-soc"><div class="head"><h2 id="h-soc">Suivez le RBBA</h2></div><!-- Mur de publications : remplacer .social-links par le code de l\'agrégateur (Elfsight, Tagembed…). --><div class="social-links">' + "".join(links) + "</div></section>"
+    if not links and not BEHOLD: return ""
+    feed = ""
+    if BEHOLD:
+        feed = (f'<div class="ig-feed"><behold-widget feed-id="{BEHOLD}"></behold-widget></div>'
+                '<script>(()=>{if(window.__bhldScript)return;window.__bhldScript=true;const d=document,s=d.createElement("script");s.type="module";s.src="https://w.behold.so/widget.js";setTimeout(()=>{d.head.append(s);},0);})();</script>')
+    return '<section class="block wrap" id="reseaux" aria-labelledby="h-soc"><div class="head"><h2 id="h-soc">Suivez le RBBA</h2>' + (f'<a class="more" href="{INSTAGRAM}" target="_blank" rel="noopener">@roiselbasketball</a>' if INSTAGRAM else "") + '</div>' + feed + '<div class="social-links">' + "".join(links) + "</div></section>"
 
 
 def head(title, desc, p=""):

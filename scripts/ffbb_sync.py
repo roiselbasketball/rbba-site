@@ -290,7 +290,14 @@ def build_matches(client, org, poules: dict[int, str]):
         # Rencontres du club
         for m in g(poule, "rencontres", default=[]) or []:
             e1, e2 = str(g(m, "nomEquipe1", default="")), str(g(m, "nomEquipe2", default=""))
-            o1, o2 = str(g(m, "idOrganismeEquipe1", default="")), str(g(m, "idOrganismeEquipe2", default=""))
+            r1, r2 = g(m, "idOrganismeEquipe1"), g(m, "idOrganismeEquipe2")
+            # selon l'API, l'équipe est un identifiant ou un objet {id, logo: {id}}
+            ident = lambda r: str(g(r, "id", default="") if r is not None and not isinstance(r, (str, int)) else (r or ""))
+            lid = lambda r: g(g(r, "logo"), "id") if r is not None and not isinstance(r, (str, int)) else None
+            o1, o2 = ident(r1), ident(r2)
+            for oid_, r_, nm_ in ((o1, r1, str(g(m, "nomEquipe1", default=""))), (o2, r2, str(g(m, "nomEquipe2", default="")))):
+                if oid_ and not logos.get(oid_) and lid(r_) and "ROISEL" not in nm_.upper():
+                    logos[oid_] = logo_path(oid_, lid(r_), nm_)
             home = o1 == club_id or "ROISEL" in e1.upper() or club_nom in e1.upper()
             away = o2 == club_id or "ROISEL" in e2.upper() or club_nom in e2.upper()
             if not (home or away):
