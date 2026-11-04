@@ -43,7 +43,7 @@ jobs:
       - name: Récupérer les données
         id: sync
         env:
-          RBBA_SITE_URL: ${{ vars.RBBA_SITE_URL || 'https://roiselbasketball.github.io/rbba-site' }}
+          RBBA_SITE_URL: ${{ vars.RBBA_SITE_URL || 'https://roiselbasketball.fr' }}
           RBBA_ORGANISME_ID: ${{ vars.RBBA_ORGANISME_ID }}
         run: |
           set +e

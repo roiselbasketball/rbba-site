@@ -42,7 +42,7 @@ DATA = ROOT / "data"
 CLUB_SEARCH = os.environ.get("RBBA_CLUB_SEARCH", "Roisel")
 CLUB_CP = os.environ.get("RBBA_CLUB_CP", "80240")
 CLUB_ID_ENV = os.environ.get("RBBA_ORGANISME_ID")  # facultatif : identifiant FFBB du club
-SITE_URL = os.environ.get("RBBA_SITE_URL", "https://roisel-basket.fr")
+SITE_URL = os.environ.get("RBBA_SITE_URL", "https://roiselbasketball.fr")
 HOME_HALL = os.environ.get("RBBA_GYMNASE", "Gymnase de Roisel, 48 Rue de Cambrai, 80240 Roisel")
 MATCH_DURATION = timedelta(hours=2, minutes=30)
 
