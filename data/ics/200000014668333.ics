@@ -26,16 +26,15 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:ffbb-200000014668333@roisel-basketball
-DTSTAMP:20261103T235014Z
+DTSTAMP:20261104T001723Z
 SEQUENCE:2
 DTSTART;TZID=Europe/Paris:20261219T200000
 DTEND;TZID=Europe/Paris:20261219T220000
 SUMMARY:BASKET BALL MONTDIDERIEN – ROISEL BASKETBALL (BBALL)
 LOCATION:Gymnase Handisport\, Pasteur\, 80500 Montdidier
 DESCRIPTION:Départementale masculine seniors - Division 2 – journée 7\n
- Infos et itinéraire : https://roiselbasketball.github.io/rbba-site/matchs
- /200000014668333/
-URL:https://roiselbasketball.github.io/rbba-site/matchs/200000014668333/
+ Infos et itinéraire : https://roiselbasketball.fr/matchs/200000014668333/
+URL:https://roiselbasketball.fr/matchs/200000014668333/
 BEGIN:VALARM
 ACTION:DISPLAY
 TRIGGER:-P1D

@@ -26,16 +26,16 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:ffbb-200000014668351@roisel-basketball
-DTSTAMP:20261103T235014Z
+DTSTAMP:20261104T001723Z
 SEQUENCE:2
 DTSTART;TZID=Europe/Paris:20270123T210000
 DTEND;TZID=Europe/Paris:20270123T230000
 SUMMARY:BASKET BALL NESLOIS – ROISEL BASKETBALL (BBALL)
 LOCATION:Gymnase Intercommunal CCES\, Boulevard PASTEUR\, 80190 Nesle
 DESCRIPTION:Départementale masculine seniors - Division 2 – journée 10\
- nInfos et itinéraire : https://roiselbasketball.github.io/rbba-site/match
- s/200000014668351/
-URL:https://roiselbasketball.github.io/rbba-site/matchs/200000014668351/
+ nInfos et itinéraire : https://roiselbasketball.fr/matchs/200000014668351
+ /
+URL:https://roiselbasketball.fr/matchs/200000014668351/
 BEGIN:VALARM
 ACTION:DISPLAY
 TRIGGER:-P1D

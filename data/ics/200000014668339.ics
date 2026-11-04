@@ -26,16 +26,15 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:ffbb-200000014668339@roisel-basketball
-DTSTAMP:20261103T235014Z
+DTSTAMP:20261104T001723Z
 SEQUENCE:2
 DTSTART;TZID=Europe/Paris:20270109T203000
 DTEND;TZID=Europe/Paris:20270109T223000
 SUMMARY:CA PERONNE BASKET BALL – ROISEL BASKETBALL (BBALL)
 LOCATION:Salle Municipale\, Route de Saint Denis\, 80200 Péronne
 DESCRIPTION:Départementale masculine seniors - Division 2 – journée 8\n
- Infos et itinéraire : https://roiselbasketball.github.io/rbba-site/matchs
- /200000014668339/
-URL:https://roiselbasketball.github.io/rbba-site/matchs/200000014668339/
+ Infos et itinéraire : https://roiselbasketball.fr/matchs/200000014668339/
+URL:https://roiselbasketball.fr/matchs/200000014668339/
 BEGIN:VALARM
 ACTION:DISPLAY
 TRIGGER:-P1D

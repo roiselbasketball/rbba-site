@@ -26,7 +26,7 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:ffbb-200000014668315@roisel-basketball
-DTSTAMP:20261103T235014Z
+DTSTAMP:20261104T001723Z
 SEQUENCE:2
 DTSTART;TZID=Europe/Paris:20261114T210000
 DTEND;TZID=Europe/Paris:20261114T230000
@@ -34,9 +34,8 @@ SUMMARY:BRAY BASKET BALL – ROISEL BASKETBALL (BBALL)
 LOCATION:Salle Omnisports de Bray s/Somme\, Rue du Pres Baudet\, 80340 Bray
  -sur-Somme
 DESCRIPTION:Départementale masculine seniors - Division 2 – journée 4\n
- Infos et itinéraire : https://roiselbasketball.github.io/rbba-site/matchs
- /200000014668315/
-URL:https://roiselbasketball.github.io/rbba-site/matchs/200000014668315/
+ Infos et itinéraire : https://roiselbasketball.fr/matchs/200000014668315/
+URL:https://roiselbasketball.fr/matchs/200000014668315/
 BEGIN:VALARM
 ACTION:DISPLAY
 TRIGGER:-P1D
