@@ -1,11 +1,11 @@
 {
-  "derniereTentative": "2026-11-05T14:38:01.315972+01:00",
+  "derniereTentative": "2026-11-05T15:39:46.256249+01:00",
   "rythme": "hors match (toutes les heures)",
   "club": "ROISEL BASKETBALL (BBALL)",
   "organismeId": "200000002678267",
-  "source": "ffbb",
+  "source": "cache",
   "derniereReussite": "2026-11-05T14:38:01.315972+01:00",
-  "erreur": null,
+  "erreur": "module 'hishel' has no attribute 'FilterPolicy'",
   "alerte": false,
   "diagnostic": {
     "poule_salle": "None",
