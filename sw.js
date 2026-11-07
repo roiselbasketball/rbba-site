@@ -1,5 +1,5 @@
 /* RBBA – service worker : l'appli s'ouvre même sans réseau (dernières pages et données vues). */
-const VERSION = "rbba-v4";
+const VERSION = "rbba-v5";
 const SHELL = ["./", "index.html", "matchs.html", "appli.html", "mentions-legales.html", "assets/style.css", "assets/app.js", "assets/ui.js", "assets/logo.webp", "assets/icon-192.png", "manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {

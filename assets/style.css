@@ -351,3 +351,77 @@ abbr[title]{text-decoration:none;cursor:help}
   .hdr .wrap{gap:10px}
   .tools{gap:6px}
 }
+
+/* =========================================================================
+   Passe « unslop » (méthode de Damir Sokolovsky, @heydamir, CC BY 4.0)
+   Direction : le gymnase de Roisel un samedi soir. Fier, direct, local.
+   Le doré est réservé à l'action principale et aux scores gagnants du RBBA.
+   Capitales condensées : titres, nom du club et menu seulement.
+   Le reste est en casse normale, sans espacement de lettres.
+   ========================================================================= */
+:root{--line-soft:rgba(24,22,20,.12)}
+
+/* bandeau licences : plus de fond doré */
+.topbar{background:var(--black-2);color:#E9E4DA;border-bottom:1px solid var(--line-d)}
+.topbar .wrap{font-family:var(--body);font-weight:500;font-size:.92rem;letter-spacing:0;text-transform:none}
+.topbar a{color:#fff;font-weight:600}
+
+/* en-tête : bouton appli discret, plus de débordement sur téléphone */
+.install-btn{background:transparent;color:#fff;border:1px solid var(--line-d);font-family:var(--body);font-weight:600;font-size:.92rem;letter-spacing:0;text-transform:none;min-width:0;flex-shrink:1;overflow:hidden}
+.install-btn span{overflow:hidden;text-overflow:ellipsis}
+.install-btn:hover{background:var(--black-2);border-color:#6D665B}
+.tools{min-width:0}
+.hdr .wrap{min-width:0}
+.ibtn{flex-shrink:0}
+
+/* boutons : casse normale ; un seul bouton doré par bloc */
+.btn{font-family:var(--body);font-weight:600;font-size:.98rem;letter-spacing:0;text-transform:none}
+.btn--out{border-width:1px}
+.btn--out-l{border-width:1px}
+.offer .btn:not(.btn--out){background:var(--black);border-color:var(--black);color:#fff}
+.offer .btn:not(.btn--out):hover{background:#2A2622;border-color:#2A2622}
+.copy{font-family:var(--body);letter-spacing:0;text-transform:none}
+
+/* liens « tout voir » : texte, pas étiquette dorée */
+.more{font-family:var(--body);font-weight:600;font-size:.95rem;letter-spacing:0;text-transform:none;color:var(--text);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:4px}
+.more:hover{text-decoration-color:currentColor}
+
+/* prochain match : le tableau d'affichage reste le moment fort */
+.next,.match-hero{border-bottom:0}
+.next-top{font-family:var(--body);font-weight:500;font-size:.95rem;letter-spacing:0;text-transform:none}
+.next-top b{color:#fff;font-weight:600}
+.side .tg{font-size:.85rem;letter-spacing:0;text-transform:none}
+.mid .vs{color:var(--mute-d);font-size:1.3rem}
+.venue{letter-spacing:.01em}
+.countdown{letter-spacing:0}
+.match-hero .status{font-family:var(--body);font-size:.95rem;letter-spacing:0;text-transform:none}
+.match-hero .mid .vs{letter-spacing:0;text-transform:none}
+.facts{font-family:var(--body);font-weight:500;font-size:1.05rem;text-transform:none}
+
+/* résultats */
+.g-date{text-transform:none}
+
+/* classement : en-tête calme, ligne RBBA sans barre */
+table.std thead th{background:transparent;color:var(--mute);font-family:var(--body);font-weight:600;font-size:.85rem;letter-spacing:0;text-transform:none;border-bottom:1px solid var(--text)}
+table.std tr.me td:first-child{box-shadow:none}
+.src{font-family:var(--body);letter-spacing:0;text-transform:none}
+.tab{letter-spacing:.02em}
+
+/* licences : cartes identiques, puces neutres */
+.offer{border-top:1px solid var(--line)}
+.offer.gold{border-top-color:var(--line)}
+.offer li::before{width:6px;height:6px;top:.7em;background:var(--mute)}
+
+/* gymnase */
+.venue-info dt{font-family:var(--body);font-weight:600;font-size:.9rem;letter-spacing:0;text-transform:none;color:var(--mute)}
+
+/* partenaires : carte simple, sans barre de couleur */
+.partner-cta{border-left:1px solid var(--line)}
+.partner-cta strong{font-size:1.3rem}
+
+/* pied de page et panneaux */
+.ftr{border-top:0}
+.ftr h4{font-family:var(--body);font-weight:600;font-size:.9rem;letter-spacing:0;text-transform:none;color:var(--mute-d)}
+.a11y,.install-help{border-top:1px solid var(--line)}
+.sponsors h3{letter-spacing:.02em}
+.brand small{letter-spacing:0}
