@@ -1,6 +1,31 @@
 {
   "_aide": "Photos du site. Déposer les images dans assets/photos/ (format JPG ou WebP, 1600 px de large maximum), puis relancer python3 scripts/build_site.py. Uniquement des photos avec autorisation de droit à l'image.",
   "credit": "Georgia Lécuyer",
-  "bandeau": "",
-  "accueil": []
+  "bandeau": "assets/photos/bandeau.webp",
+  "accueil": [
+    {
+      "fichier": "assets/photos/groupe-rbba.webp",
+      "legende": "Les joueurs du RBBA réunis avant le match à Albert, le 4 octobre 2026"
+    },
+    {
+      "fichier": "assets/photos/numero-5.webp",
+      "legende": "Un joueur du RBBA, maillot numéro 5, de dos"
+    },
+    {
+      "fichier": "assets/photos/tir.webp",
+      "legende": "Tir en suspension d'un joueur du RBBA au Gymnase de Roisel"
+    },
+    {
+      "fichier": "assets/photos/equipe.webp",
+      "legende": "L'équipe seniors du RBBA en photo de groupe"
+    },
+    {
+      "fichier": "assets/photos/entre-deux.webp",
+      "legende": "Duel au rebond pendant un match du RBBA"
+    },
+    {
+      "fichier": "assets/photos/attaque.webp",
+      "legende": "Attaque du RBBA au Gymnase de Roisel"
+    }
+  ]
 }

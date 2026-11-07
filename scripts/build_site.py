@@ -149,7 +149,7 @@ def gallery():
 
 def hero_style():
     h = PHOTOS.get("bandeau")
-    return f' style="--photo:url(\'{h}\')"' if h else ""
+    return f' style="--photo:url(\'/{h.lstrip("/")}\')"' if h else ""
 
 
 def home():

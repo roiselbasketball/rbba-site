@@ -327,7 +327,7 @@ abbr[title]{text-decoration:none;cursor:help}
 .head .more .lg{display:inline}.head .more .sm{display:none}
 @media (max-width:420px){.head{flex-wrap:nowrap}.head .more .lg{display:none}.head .more .sm{display:inline}}
 /* photos */
-.next.has-photo{background:linear-gradient(90deg,rgba(18,16,16,.92),rgba(18,16,16,.78) 50%,rgba(18,16,16,.92)),var(--photo) center/cover no-repeat,var(--black)}
+.next.has-photo{background:linear-gradient(180deg,rgba(18,16,16,.80),rgba(18,16,16,.72) 45%,rgba(18,16,16,.90)),var(--photo) center/cover no-repeat,var(--black)}
 .gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 @media (max-width:700px){.gallery{grid-template-columns:1fr 1fr}}
 .gallery figure{margin:0;aspect-ratio:4/3;overflow:hidden;background:#E6E1D7}
@@ -367,7 +367,8 @@ abbr[title]{text-decoration:none;cursor:help}
 .topbar a{color:#fff;font-weight:600}
 
 /* en-tête : bouton appli discret, plus de débordement sur téléphone */
-.install-btn{background:transparent;color:#fff;border:1px solid var(--line-d);font-family:var(--body);font-weight:600;font-size:.92rem;letter-spacing:0;text-transform:none;min-width:0;flex-shrink:1;overflow:hidden}
+.install-btn{background:transparent;color:#fff;border:1px solid var(--line-d);font-family:var(--body);font-weight:600;font-size:.92rem;letter-spacing:0;text-transform:none}
+@media (max-width:560px){.install-btn{min-width:0;flex-shrink:1;overflow:hidden}}
 .install-btn span{overflow:hidden;text-overflow:ellipsis}
 .install-btn:hover{background:var(--black-2);border-color:#6D665B}
 .tools{min-width:0}
