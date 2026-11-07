@@ -1,4 +1,9 @@
 {
   "_aide": "Logos fournis par le club, prioritaires sur ceux de la FFBB. Clé : une partie du nom de l'équipe telle qu'écrite par la FFBB. Valeur : chemin de l'image dans le site.",
-  "_exemple": {"BRAY": "assets/clubs/bray.png"}
+  "_exemple": {
+    "BRAY": "assets/clubs/bray.png"
+  },
+  "ALBERT": "assets/clubs/albert.png",
+  "NESLOIS": "assets/clubs/nesle.png",
+  "MONTDID": "assets/clubs/montdidier.png"
 }
