@@ -1,0 +1,26 @@
+name: Import photos Drive
+on:
+  push:
+    branches: [photos-import]
+    paths: [drive-import/ids.txt]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Télécharger les miniatures
+        run: |
+          mkdir -p drive-import/img
+          while read -r name id; do
+            [ -z "$id" ] && continue
+            curl -sSL --max-time 60 -o "drive-import/img/$name.jpg" "https://drive.google.com/thumbnail?id=$id&sz=w2000" || true
+            file "drive-import/img/$name.jpg" | tee -a drive-import/log.txt
+          done < drive-import/ids.txt
+      - name: Enregistrer
+        run: |
+          git config user.name "rbba-bot"; git config user.email "actions@github.com"
+          git add drive-import
+          git commit -m "Miniatures Drive" || true
+          git push origin photos-import
