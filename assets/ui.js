@@ -68,7 +68,17 @@
     if (Notification.permission === "granted" && optedIn()) return "on";
     return "off";
   }
-  function notify() { listeners.forEach(function (f) { f(state()); }); }
+  function notify() { var st = state(); if (st === "on") bienvenue(); listeners.forEach(function (f) { f(st); }); }
+  // Bienvenue : on note l'heure d'abonnement (étiquette OneSignal) ; le robot du site envoie
+  // 10 à 15 minutes plus tard une notification avec le prochain match (une seule fois par téléphone).
+  function bienvenue() {
+    if (!OS) return;
+    try { if (localStorage.getItem("rbba-bienvenue")) return; } catch (e) {}
+    try {
+      OS.User.addTag("abonne_le", String(Math.floor(Date.now() / 1000)));
+      try { localStorage.setItem("rbba-bienvenue", "1"); } catch (e) {}
+    } catch (e) {}
+  }
   // À appeler directement depuis un toucher (iPhone l'exige)
   function enable(say) {
     say = say || function () {};

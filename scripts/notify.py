@@ -115,7 +115,7 @@ def log(entry: dict) -> None:
     LOG.write_text(json.dumps(hist[-30:], ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
 
-def send(title: str, body: str, url: str, topic: str) -> bool:
+def send(title: str, body: str, url: str, topic: str, filters: list | None = None) -> bool:
     if not KEY:
         print(f"(pas de clé OneSignal) {title} : {body}")
         log({"titre": title, "resultat": "pas de clé ONESIGNAL_REST_KEY"})
@@ -123,7 +123,7 @@ def send(title: str, body: str, url: str, topic: str) -> bool:
     payload = {
         "app_id": APP_ID,
         "target_channel": "push",
-        "included_segments": ["Total Subscriptions"],
+        **({"filters": filters} if filters else {"included_segments": ["Total Subscriptions"]}),
         "headings": {"en": title, "fr": title},
         "contents": {"en": body, "fr": body},
         "url": url,
@@ -141,8 +141,10 @@ def send(title: str, body: str, url: str, topic: str) -> bool:
         with urllib.request.urlopen(req, timeout=20) as r:
             rep = r.read()[:400].decode("utf-8", "replace")
             print("envoyé :", title, "|", r.status, rep)
-            log({"titre": title, "resultat": r.status, "reponse": rep})
-            return True
+            vide = '"id":""' in rep.replace(" ", "")
+            if not (filters and vide):  # pas de journal pour une bienvenue sans destinataire
+                log({"titre": title, "resultat": r.status, "reponse": rep, **({"cible": "nouveaux abonnés"} if filters else {})})
+            return not vide
     except Exception as e:
         detail = getattr(e, "read", lambda: b"")()[:300]
         print("échec d'envoi :", title, e, detail, file=sys.stderr)
@@ -216,6 +218,35 @@ def main() -> None:
         if send(t.get("titre", "Test RBBA"), t.get("texte", "Les alertes du RBBA fonctionnent."), t.get("url", SITE + "/"), "test") or not KEY:
             test.unlink()
 
+    # Bienvenue : nouveaux abonnés depuis 10 minutes ou plus → le prochain match
+    limite = int((now - timedelta(minutes=10)).timestamp())
+    depuis = int(state.get("bienvenue_depuis") or limite)
+    if first:
+        depuis = limite
+    elif limite > depuis:
+        avenir = []
+        for m in matches:
+            if m.get("coupEnvoi") and not m.get("joue"):
+                ko = datetime.fromisoformat(m["coupEnvoi"])
+                ko = ko.replace(tzinfo=PARIS) if ko.tzinfo is None else ko.astimezone(PARIS)
+                if ko > now:
+                    avenir.append((ko, m))
+        if avenir:
+            ko, m = min(avenir, key=lambda x: x[0])
+            jours = (ko.date() - now.date()).days
+            if jours == 0:
+                titre, corps = message_jour(m, ko)
+            elif jours <= 6:
+                titre, corps = message_semaine(m, ko)
+            else:
+                titre, corps = message_semaine(m, ko)
+                titre = f"🏀 Prochain match : {JOURS[ko.weekday()]} {ko.day} {MOIS[ko.month - 1]}"
+            filtres = [{"field": "tag", "key": "abonne_le", "relation": ">", "value": str(depuis)},
+                       {"field": "tag", "key": "abonne_le", "relation": "<", "value": str(limite + 1)}]
+            # On n'avance la fenêtre que si quelqu'un a reçu le message (sinon rien à mémoriser)
+            if KEY and send(titre, corps, m.get("page") or SITE + "/", "bienvenue", filtres):
+                depuis = limite
+
     # Alerte de test ponctuelle (fichier data/alerte_test.json, supprimé après envoi)
     test = DATA / "alerte_test.json"
     if test.exists():
@@ -235,9 +266,9 @@ def main() -> None:
         send("📸 Nouveau post du RBBA", txt, p.get("permalink") or "https://www.instagram.com/roiselbasketball/", "instagram")
     seen.update(str(p["id"]) for p in posts)
 
-    new_state = {"envoyes": sorted(done)[-400:], "instagram": sorted(seen)[-200:], "maj": now.isoformat(timespec="minutes")}
+    new_state = {"envoyes": sorted(done)[-400:], "instagram": sorted(seen)[-200:], "bienvenue_depuis": depuis, "maj": now.isoformat(timespec="minutes")}
     old = load(STATE, None)
-    if old is None or {k: v for k, v in old.items() if k != "maj"} != {k: v for k, v in new_state.items() if k != "maj"}:
+    if old is None or {k: v for k, v in old.items() if k not in ("maj", "bienvenue_depuis")} != {k: v for k, v in new_state.items() if k not in ("maj", "bienvenue_depuis")} or old.get("bienvenue_depuis") != new_state["bienvenue_depuis"]:
         STATE.write_text(json.dumps(new_state, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
 
