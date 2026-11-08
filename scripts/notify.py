@@ -2,7 +2,8 @@
 Alertes de match du RBBA (notifications web via OneSignal).
 
 Lancé à chaque passage du robot (toutes les 5 minutes) :
-  - le jour d'un match, à partir de 10 h : « Ce soir 20h30 : RBBA contre … » ;
+  - le mercredi (18 h) de chaque semaine de match : « Nos seniors se déplacent à … ce samedi » + adresse ;
+  - le jour d'un match, à partir de 10 h : « C'est jour de match … ce soir » + adresse ;
   - quand la FFBB publie le score final : « Victoire du RBBA … » ;
   - quand un nouveau post apparaît sur Instagram (flux Behold).
 
@@ -30,6 +31,7 @@ KEY = os.environ.get("ONESIGNAL_REST_KEY", "").strip()
 SITE = os.environ.get("RBBA_SITE_URL", "https://roiselbasketball.fr").rstrip("/")
 BEHOLD = os.environ.get("BEHOLD_FEED", "quMGqyDE08fF7hLVtnYc")
 ICON = SITE + "/assets/icon-192.png"
+JOURS = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
 MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
 
 
@@ -38,6 +40,24 @@ def nice(name: str) -> str:
     name = re.sub(r"\s+-\s+(\d+)$", r" \1", name)
     s = re.sub(r"(^|[\s\-'’])(\w)", lambda m: m.group(1) + m.group(2).upper(), name.lower())
     return re.sub(r"\b(Ca|Us|Uso|Bb|Bc|Es|As|Rbba)\b", lambda m: m.group(0).upper(), s)
+
+
+def heure(ko: datetime) -> str:
+    return f"{ko.hour}h" if ko.minute == 0 else f"{ko.hour}h{ko.minute:02d}"
+
+
+def phrase(m: dict, ko: datetime, quand: str) -> str:
+    """« Nos seniors se déplacent à Bray-sur-Somme ce samedi 14 novembre à 21h … Adresse : … »"""
+    dom, ext = nice(m.get("equipeDomicile")), nice(m.get("equipeExterieur"))
+    lieu = (m.get("lieu") or "").strip()
+    coupe = " en coupe" if "coupe" in (m.get("competition") or "").lower() else ""
+    if m.get("rbbaADomicile"):
+        txt = f"Nos seniors reçoivent {ext}{coupe} {quand} à {heure(ko)}."
+        return txt + (f" Rendez-vous au {lieu}." if lieu else "")
+    ville = re.search(r"\d{5}\s+(.+)$", lieu)
+    ou = f"à {ville.group(1)}" if ville else f"chez {dom}"
+    txt = f"Nos seniors se déplacent {ou}{coupe} {quand} à {heure(ko)} pour affronter {dom}."
+    return txt + (f" Adresse : {lieu}." if lieu else "")
 
 
 def load(path: Path, default):
@@ -109,16 +129,25 @@ def main() -> None:
         url = m.get("page") or f"{SITE}/matchs.html"
         lieu = (m.get("lieu") or "").split(",")[0].strip().title()
 
+        # Match de la semaine : le mercredi à partir de 18 h, pour un match dans les 6 jours
+        k = f"semaine:{m['id']}:{ko.date()}"
+        jours = (ko.date() - now.date()).days
+        if k not in done and not m.get("joue") and 0 < jours <= 6:
+            if first:
+                done.add(k)
+            elif now.weekday() == 2 and now.hour >= 18:
+                quand = f"ce {JOURS[ko.weekday()]} {ko.day} {MOIS[ko.month - 1]}"
+                send("Match de la semaine", phrase(m, ko, quand), url, f"semaine-{m['id']}")
+                done.add(k)
+
         # Jour de match (à partir de 10 h, jusqu'au coup d'envoi)
         k = f"jour:{m['id']}:{ko.date()}"
         if k not in done and ko.date() == now.date() and not m.get("joue"):
             if first or now >= ko:
                 done.add(k)
             elif now.hour >= 10:
-                heure = f"{ko.hour}h{ko.minute:02d}"
                 quand = "ce soir" if ko.hour >= 18 else "aujourd'hui"
-                txt = f"{dom} reçoit {ext} {quand} à {heure}" + (f", {lieu}." if lieu else ".")
-                send("Jour de match", txt, url, f"jour-{m['id']}")
+                send("C'est jour de match", phrase(m, ko, quand), url, f"jour-{m['id']}")
                 done.add(k)
 
         # Score final (dans les 2 jours suivant le match)
@@ -140,6 +169,14 @@ def main() -> None:
         t = load(test, {})
         if send(t.get("titre", "Test RBBA"), t.get("texte", "Les alertes du RBBA fonctionnent."), t.get("url", SITE + "/"), "test") or not KEY:
             test.unlink()
+
+    # Alerte de test ponctuelle (fichier data/alerte_test.json, supprimé après envoi)
+    test = DATA / "alerte_test.json"
+    if test.exists():
+        t = load(test, {})
+        if t.get("titre") and t.get("texte"):
+            send(t["titre"], t["texte"], t.get("url") or SITE + "/", "test")
+        test.unlink()
 
     # Nouveau post Instagram : une seule alerte, pour le plus récent
     posts = instagram_posts()
