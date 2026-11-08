@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-08T17:02:29.801558+01:00",
+  "miseAJour": "2026-11-08T17:54:21.810017+01:00",
   "poules": [
     {
       "pouleId": 200000003057512,
@@ -7,18 +7,18 @@
       "poule": "Poule EST",
       "lignes": [
         {
-          "logo": null,
+          "logo": "assets/clubs/nesle.png",
           "rang": 1,
           "equipe": "BASKET BALL NESLOIS",
           "estRBBA": false,
-          "joues": 2,
-          "victoires": 2,
+          "joues": 3,
+          "victoires": 3,
           "defaites": 0,
           "forfaits": 0,
-          "pointsPour": 154,
-          "pointsContre": 101,
-          "difference": 53,
-          "points": 4,
+          "pointsPour": 226,
+          "pointsContre": 151,
+          "difference": 75,
+          "points": 6,
           "evolution": 0
         },
         {
@@ -37,18 +37,18 @@
           "evolution": 0
         },
         {
-          "logo": null,
+          "logo": "assets/clubs/albert.png",
           "rang": 3,
           "equipe": "USO ALBERT AVIATION",
           "estRBBA": false,
-          "joues": 2,
+          "joues": 3,
           "victoires": 1,
-          "defaites": 1,
+          "defaites": 2,
           "forfaits": 0,
-          "pointsPour": 132,
-          "pointsContre": 126,
-          "difference": 6,
-          "points": 3,
+          "pointsPour": 182,
+          "pointsContre": 198,
+          "difference": -16,
+          "points": 4,
           "evolution": 0
         },
         {
@@ -67,39 +67,39 @@
           "evolution": 0
         },
         {
-          "logo": null,
-          "rang": 5,
-          "equipe": "BASKET BALL MONTDIDERIEN",
-          "estRBBA": false,
-          "joues": 2,
-          "victoires": 0,
-          "defaites": 2,
-          "forfaits": 0,
-          "pointsPour": 90,
-          "pointsContre": 123,
-          "difference": -33,
-          "points": 2,
-          "evolution": 0
-        },
-        {
           "logo": "data/logos/200000002676314.png",
-          "rang": 6,
+          "rang": 5,
           "equipe": "BRAY BASKET BALL",
           "estRBBA": false,
-          "joues": 2,
-          "victoires": 0,
+          "joues": 3,
+          "victoires": 1,
           "defaites": 1,
           "forfaits": 0,
-          "pointsPour": 51,
-          "pointsContre": 92,
-          "difference": -41,
-          "points": 1,
-          "evolution": 0
+          "pointsPour": 110,
+          "pointsContre": 141,
+          "difference": -31,
+          "points": 3,
+          "evolution": 1
+        },
+        {
+          "logo": "assets/clubs/montdidier.png",
+          "rang": 6,
+          "equipe": "BASKET BALL MONTDIDERIEN",
+          "estRBBA": false,
+          "joues": 3,
+          "victoires": 0,
+          "defaites": 3,
+          "forfaits": 0,
+          "pointsPour": 139,
+          "pointsContre": 182,
+          "difference": -43,
+          "points": 3,
+          "evolution": -1
         }
       ],
       "source": "ffbb",
-      "journeesJouees": 6,
-      "dernierResultat": "2026-10-10T21:00:00+02:00",
+      "journeesJouees": 8,
+      "dernierResultat": "2026-11-08T13:30:00+01:00",
       "principale": true
     },
     {
@@ -164,7 +164,7 @@
           "points": 0,
           "difference": 0,
           "rang": 4,
-          "logo": null,
+          "logo": "assets/clubs/montdidier.png",
           "evolution": 0
         },
         {
@@ -179,7 +179,7 @@
           "points": 0,
           "difference": 0,
           "rang": 5,
-          "logo": null,
+          "logo": "assets/clubs/nesle.png",
           "evolution": 0
         },
         {
@@ -344,7 +344,7 @@
           "points": 0,
           "difference": 0,
           "rang": 16,
-          "logo": null,
+          "logo": "assets/clubs/albert.png",
           "evolution": 0
         }
       ],
