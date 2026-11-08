@@ -118,22 +118,45 @@
 
   // Proposition à l'ouverture de l'appli installée : « Ne manquez aucun match »
   function sheet() {
-    if (!standalone || !supported || Notification.permission !== "default") return;
+    // À chaque ouverture de l'appli installée, tant que les alertes ne sont pas activées.
+    // « Plus tard » ne masque que jusqu'à la prochaine ouverture.
+    if (!standalone || !supported) return;
     var KEY = "rbba-alertes-plus-tard";
-    try { var t = +localStorage.getItem(KEY); if (t && Date.now() - t < 7 * 864e5) return; } catch (e) {}
-    var el = document.createElement("div");
-    el.className = "alert-sheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-labelledby", "as-title");
-    el.innerHTML = '<div class="as-in"><img src="' + (document.querySelector(".brand img") || {}).src + '" alt="" width="44" height="40">' +
-      '<div class="as-tx"><h2 id="as-title">Ne manquez aucun match</h2><p>Le jour du match, le score final et les nouveaux posts du club, directement sur votre écran.</p><p class="as-st" role="status" aria-live="polite"></p></div>' +
-      '<div class="as-btns"><button class="btn" type="button" data-as="ok">Activer les alertes</button><button class="btn btn--out" type="button" data-as="later">Plus tard</button></div></div>';
-    var st = el.querySelector(".as-st");
-    function close() { el.classList.remove("open"); setTimeout(function () { el.remove(); }, 250); }
-    el.querySelector('[data-as="later"]').addEventListener("click", function () { try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} close(); });
-    el.querySelector('[data-as="ok"]').addEventListener("click", function () {
-      enable(function (t) { st.textContent = t; }).then(function (ok) { if (ok) { st.textContent = "C'est bon, à samedi au gymnase !"; setTimeout(close, 1600); } else if (Notification.permission === "denied") close(); });
-    });
-    document.body.appendChild(el);
-    setTimeout(function () { el.classList.add("open"); el.querySelector('[data-as="ok"]').focus({ preventScroll: true }); }, 1500);
+    try { if (sessionStorage.getItem(KEY)) return; } catch (e) {}
+    var denied = Notification.permission === "denied";
+    if (Notification.permission === "granted") {
+      // Autorisé mais peut-être pas encore abonné : on vérifie quand OneSignal est prêt
+      var waited = 0;
+      (function check() {
+        if (OS) { if (!optedIn()) show(false); return; }
+        if ((waited += 500) < 8000) setTimeout(check, 500);
+      })();
+      return;
+    }
+    show(denied);
+    function show(blocked) {
+      var el = document.createElement("div");
+      el.className = "alert-sheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-labelledby", "as-title");
+      var aide = ios ? "Réglages > Notifications > RBBA, puis activez « Autoriser les notifications »." : "Appui long sur l'icône RBBA > Infos sur l'appli > Notifications, puis activez-les.";
+      el.innerHTML = '<div class="as-in"><img src="' + (document.querySelector(".brand img") || {}).src + '" alt="" width="44" height="40">' +
+        '<div class="as-tx"><h2 id="as-title">Ne manquez aucun match</h2><p>Le jour du match, le score final et les nouveaux posts du club, directement sur votre écran.</p>' +
+        (blocked ? '<p class="as-help">Les notifications sont coupées pour l\'appli. Pour les activer : ' + aide + '</p>' : '') +
+        '<p class="as-st" role="status" aria-live="polite"></p></div>' +
+        '<div class="as-btns">' + (blocked ? '' : '<button class="btn" type="button" data-as="ok">Activer les alertes</button>') +
+        '<button class="btn btn--out" type="button" data-as="later">' + (blocked ? "Compris" : "Plus tard") + '</button></div></div>';
+      var st = el.querySelector(".as-st");
+      function close() { el.classList.remove("open"); setTimeout(function () { el.remove(); }, 250); }
+      el.querySelector('[data-as="later"]').addEventListener("click", function () { try { sessionStorage.setItem(KEY, "1"); } catch (e) {} close(); });
+      var ok = el.querySelector('[data-as="ok"]');
+      if (ok) ok.addEventListener("click", function () {
+        enable(function (t) { st.textContent = t; }).then(function (res) {
+          if (res) { st.textContent = "C'est bon, à samedi au gymnase !"; setTimeout(close, 1600); }
+          else if (Notification.permission === "denied") { close(); }
+        });
+      });
+      document.body.appendChild(el);
+      setTimeout(function () { el.classList.add("open"); el.querySelector("button").focus({ preventScroll: true }); }, 1500);
+    }
   }
 
   function boot() { block(); sheet(); }

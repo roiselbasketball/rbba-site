@@ -446,3 +446,4 @@ table.std tr.me td:first-child{box-shadow:none}
 .alert-sheet .as-st{margin-top:6px;color:#fff;font-weight:600}
 .alert-sheet .as-btns{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}
 .alert-sheet .btn--out{color:#fff;border-color:var(--line-d);background:transparent}
+.alert-sheet .as-help{margin-top:8px;color:#fff}
