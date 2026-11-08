@@ -134,6 +134,13 @@ def main() -> None:
                 send(titre, txt, url, f"score-{m['id']}")
                 done.add(k)
 
+    # Envoi de test : data/notify_test.json {"titre": …, "texte": …} puis suppression
+    test = DATA / "notify_test.json"
+    if test.exists():
+        t = load(test, {})
+        if send(t.get("titre", "Test RBBA"), t.get("texte", "Les alertes du RBBA fonctionnent."), t.get("url", SITE + "/"), "test") or not KEY:
+            test.unlink()
+
     # Nouveau post Instagram : une seule alerte, pour le plus récent
     posts = instagram_posts()
     nouveaux = [p for p in posts if str(p["id"]) not in seen]
