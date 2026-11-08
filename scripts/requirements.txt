@@ -1,1 +1,3 @@
 ffbb-data-client==2.4.43
+# hishel 2.x a retiré FilterPolicy (utilisé par ffbb-data-client) : synchro cassée depuis le 05/11/2026
+hishel[async]>=1.3,<2

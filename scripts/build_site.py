@@ -49,7 +49,7 @@ def head(title, desc, p=""):
 <link rel="manifest" href="{p}manifest.webmanifest">
 <link rel="icon" href="{p}assets/icon-192.png">
 <link rel="apple-touch-icon" href="{p}assets/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="RBBA">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="RBBA">
 {FONTS}
 <link rel="stylesheet" href="{p}assets/style.css">
 <script src="{p}assets/ui.js" defer></script>
@@ -118,9 +118,9 @@ def footer(p=""):
   <div class="wrap">
     <div class="ftr-grid">
       <div class="ftr-brand"><img src="{p}assets/logo.webp" alt="Logo Roisel Basketball" width="72" height="66"><b>Roisel<br>Basketball</b></div>
-      <div><h4>Contact</h4><ul><li><a class="tel" href="tel:+33616016765">06 16 01 67 65</a></li><li><a href="mailto:roiselbasketball@gmail.com">roiselbasketball@gmail.com</a></li>{socials_ftr()}</ul></div>
-      <div><h4>Gymnase</h4><ul><li>Gymnase de Roisel</li><li>48 Rue de Cambrai, 80240 Roisel</li><li><a href="https://www.google.com/maps/dir/?api=1&amp;destination={GEO}" target="_blank" rel="noopener">Itinéraire</a></li></ul></div>
-      <div><h4>Le site</h4><ul><li><a href="{p}matchs.html">Matchs</a></li><li><a href="{p}matchs.html#classement">Classement</a></li><li><a href="{p}index.html#licences">Licences</a></li><li><a href="{p}appli.html">L'appli RBBA</a></li></ul></div>
+      <div><h2>Contact</h2><ul><li><a class="tel" href="tel:+33616016765">06 16 01 67 65</a></li><li><a href="mailto:roiselbasketball@gmail.com">roiselbasketball@gmail.com</a></li>{socials_ftr()}</ul></div>
+      <div><h2>Gymnase</h2><ul><li>Gymnase de Roisel</li><li>48 Rue de Cambrai, 80240 Roisel</li><li><a href="https://www.google.com/maps/dir/?api=1&amp;destination={GEO}" target="_blank" rel="noopener">Itinéraire</a></li></ul></div>
+      <div><h2>Le site</h2><ul><li><a href="{p}matchs.html">Matchs</a></li><li><a href="{p}matchs.html#classement">Classement</a></li><li><a href="{p}index.html#licences">Licences</a></li><li><a href="{p}appli.html">L'appli RBBA</a></li></ul></div>
     </div>
     <div class="ftr-bottom"><span>© 2026 Roisel Basketball · Données FFBB</span><span><a href="{p}mentions-legales.html">Mentions légales</a> · <a href="{p}mentions-legales.html#confidentialite">Confidentialité</a> · <a href="{p}mentions-legales.html#accessibilite">Accessibilité</a></span></div>
   </div>

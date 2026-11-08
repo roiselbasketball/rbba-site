@@ -504,6 +504,18 @@ def apply_manual(matches: list[dict]) -> list[dict]:
     return sorted(by_id.values(), key=lambda x: x.get("coupEnvoi") or "9999")
 
 
+def fill_logos(matches: list[dict], rankings: list[dict]) -> None:
+    """Applique data/logos.json aussi quand les données viennent du cache (échec FFBB)."""
+    for m in matches:
+        for side, team in (("logoDomicile", "equipeDomicile"), ("logoExterieur", "equipeExterieur")):
+            if not m.get(side) and m.get(team):
+                m[side] = logo_path("", None, m[team])
+    for p in rankings:
+        for r in p.get("lignes", []) or []:
+            if not r.get("logo") and r.get("equipe"):
+                r["logo"] = logo_path("", None, r["equipe"])
+
+
 # ------------------------------------------------------------------- agenda .ics
 def ics_escape(s: str) -> str:
     return str(s).replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,").replace("\n", "\\n")
@@ -623,6 +635,7 @@ def run(client=None, force=False) -> int:
         lives = []
 
     matches = apply_manual(matches)
+    fill_logos(matches, rankings)
     maj = now.isoformat()
     save_json(DATA / "matchs.json", {"miseAJour": maj, "matchs": matches})
     save_json(DATA / "classement.json", {"miseAJour": maj, "poules": rankings})
