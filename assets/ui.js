@@ -62,33 +62,45 @@
     var status = document.querySelector(".alerts-status"), iosNote = document.querySelector(".alerts-ios");
     var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
     var standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+    var OS = null;
     function say(t) { if (status) status.textContent = t; }
+    function optedIn() { try { return !!(OS && OS.User.PushSubscription.optedIn); } catch (e) { return false; } }
+    function refresh() {
+      if (!("Notification" in window)) return;
+      if (Notification.permission === "denied") { btn.textContent = "Alertes bloquées"; say("Les notifications sont bloquées pour ce site. Sur iPhone : Réglages > Notifications > RBBA. Sur Android : appui long sur l'appli > Infos > Notifications."); return; }
+      var on = Notification.permission === "granted" && (OS ? optedIn() : true);
+      btn.textContent = on ? "Alertes activées" : "Recevoir les alertes";
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      say(on ? "C'est bon : vous recevrez les alertes du RBBA." : "");
+    }
     if (ios && !standalone) {
       if (iosNote) iosNote.hidden = false;
       btn.textContent = "Installer l'appli d'abord";
-      btn.addEventListener("click", function () { var b = document.querySelector(".install-btn"); if (b) b.click(); });
+      btn.addEventListener("click", function () { var b = document.querySelector(".install-btn"); if (b) b.click(); else location.href = "appli.html"; });
       return;
     }
-    if (!("Notification" in window)) { btn.disabled = true; say("Ce navigateur ne gère pas les notifications."); return; }
-    function refresh(OS) {
-      var on = OS && OS.Notifications.permission && OS.User.PushSubscription.optedIn;
-      if (Notification.permission === "denied") { btn.disabled = true; say("Notifications bloquées : autorisez-les dans les réglages du navigateur pour ce site."); return; }
-      btn.textContent = on ? "Alertes activées" : "Recevoir les alertes";
-      btn.setAttribute("aria-pressed", on ? "true" : "false");
-      say(on ? "Vous recevrez les alertes du RBBA. Touchez à nouveau pour les couper." : "");
-    }
+    if (!("Notification" in window) || !("serviceWorker" in navigator)) { btn.disabled = true; say("Ce navigateur ne gère pas les notifications. Sur iPhone, il faut iOS 16.4 ou plus récent et l'appli installée."); return; }
+    refresh();
+    btn.addEventListener("click", function () {
+      if (optedIn()) { say("Pour couper les alertes : réglages de notifications du téléphone."); return; }
+      say("Demande en cours…");
+      // Demande native immédiate (iPhone exige qu'elle parte directement du toucher)
+      var ask = Notification.permission === "default" ? Notification.requestPermission() : Promise.resolve(Notification.permission);
+      Promise.resolve(ask).then(function (perm) {
+        if (perm !== "granted") { refresh(); if (perm !== "denied") say("Alertes non activées."); return; }
+        say("Activation…");
+        var tries = 0;
+        (function finish() {
+          if (OS) { Promise.resolve(OS.User.PushSubscription.optIn()).catch(function () {}).then(function () { setTimeout(refresh, 800); }); return; }
+          if (++tries > 20) { say("Autorisation enregistrée. L'abonnement se finalisera à la prochaine ouverture de l'appli."); return; }
+          setTimeout(finish, 500);
+        })();
+      }).catch(function () { say("Activation impossible pour le moment. Réessayez dans un instant."); });
+    });
     window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(function (OS) {
-      refresh(OS);
-      OS.User.PushSubscription.addEventListener("change", function () { refresh(OS); });
-      btn.addEventListener("click", async function () {
-        try {
-          if (OS.User.PushSubscription.optedIn) { await OS.User.PushSubscription.optOut(); }
-          else if (Notification.permission === "granted") { await OS.User.PushSubscription.optIn(); }
-          else { await OS.Notifications.requestPermission(); }
-        } catch (e) { say("Activation impossible pour le moment. Réessayez dans un instant."); }
-        refresh(OS);
-      });
+    OneSignalDeferred.push(function (O) {
+      OS = O; refresh();
+      try { O.User.PushSubscription.addEventListener("change", refresh); } catch (e) {}
     });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
