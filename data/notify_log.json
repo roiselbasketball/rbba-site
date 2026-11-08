@@ -1,0 +1,8 @@
+[
+ {
+  "quand": "2026-11-08T20:26:27+01:00",
+  "titre": "Match de la semaine",
+  "resultat": 200,
+  "reponse": "{\"id\":\"\",\"errors\":[\"All included players are not subscribed\"]}"
+ }
+]
