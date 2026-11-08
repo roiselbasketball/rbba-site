@@ -65,10 +65,14 @@
   function state() {
     if (!supported) return "unsupported";
     if (Notification.permission === "denied") return "denied";
-    if (Notification.permission === "granted" && optedIn()) return "on";
+    if (Notification.permission === "granted" && (optedIn() || flag())) return "on";
     return "off";
   }
-  function notify() { var st = state(); if (st === "on") bienvenue(); listeners.forEach(function (f) { f(st); }); }
+  function flag() { try { return localStorage.getItem("rbba-alertes-ok") === "1"; } catch (e) { return false; } }
+  function setFlag() { try { localStorage.setItem("rbba-alertes-ok", "1"); } catch (e) {} }
+  // Après une activation, on revérifie quelques secondes (l'abonnement OneSignal peut prendre un instant)
+  function recheck() { var n = 0; (function t() { notify(); if (++n < 15) setTimeout(t, 1000); })(); }
+  function notify() { var st = state(); if (st === "on" || (supported && Notification.permission === "granted")) bienvenue(); listeners.forEach(function (f) { f(st); }); }
   // Bienvenue : on note l'heure d'abonnement (étiquette OneSignal) ; le robot du site envoie
   // 10 à 15 minutes plus tard une notification avec le prochain match (une seule fois par téléphone).
   function bienvenue() {
@@ -87,7 +91,7 @@
     var ask = Notification.permission === "default" ? Notification.requestPermission() : Promise.resolve(Notification.permission);
     return Promise.resolve(ask).then(function (perm) {
       if (perm !== "granted") { notify(); if (perm !== "denied") say("Alertes non activées."); return false; }
-      say("Activation…");
+      say("Activation…"); setFlag(); recheck();
       return new Promise(function (res) {
         var tries = 0;
         (function finish() {
@@ -172,6 +176,6 @@
     }
   }
 
-  function boot() { block(); sheet(); }
+  function boot() { block(); sheet(); document.addEventListener("visibilitychange", function () { if (!document.hidden) notify(); }); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();
