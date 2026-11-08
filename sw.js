@@ -1,6 +1,6 @@
 /* RBBA – service worker : l'appli s'ouvre même sans réseau (dernières pages et données vues). */
 importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
-const VERSION = "rbba-v13";
+const VERSION = "rbba-v14";
 const SHELL = ["./", "index.html", "matchs.html", "appli.html", "mentions-legales.html", "assets/style.css", "assets/app.js", "assets/ui.js", "assets/logo.webp", "assets/icon-192.png", "manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {

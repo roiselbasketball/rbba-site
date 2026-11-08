@@ -65,7 +65,7 @@
   function state() {
     if (!supported) return "unsupported";
     if (Notification.permission === "denied") return "denied";
-    if (Notification.permission === "granted" && (optedIn() || flag())) return "on";
+    if (Notification.permission === "granted" && (OS ? optedIn() : flag())) return "on";
     return "off";
   }
   function flag() { try { return localStorage.getItem("rbba-alertes-ok") === "1"; } catch (e) { return false; } }
@@ -83,24 +83,32 @@
       try { localStorage.setItem("rbba-bienvenue", "1"); } catch (e) {}
     } catch (e) {}
   }
-  // À appeler directement depuis un toucher (iPhone l'exige)
+  // À appeler directement depuis un toucher : sur iPhone, l'autorisation ET l'abonnement
+  // doivent partir dans le même geste, sans attente avant (sinon l'abonnement est refusé en silence).
   function enable(say) {
     say = say || function () {};
     if (!supported) { say("Ce téléphone ne gère pas les notifications."); return Promise.resolve(false); }
     say("Demande en cours…");
-    var ask = Notification.permission === "default" ? Notification.requestPermission() : Promise.resolve(Notification.permission);
-    return Promise.resolve(ask).then(function (perm) {
-      if (perm !== "granted") { notify(); if (perm !== "denied") say("Alertes non activées."); return false; }
-      say("Activation…"); setFlag(); recheck();
+    var p;
+    if (OS) {
+      p = Notification.permission === "granted" ? OS.User.PushSubscription.optIn() : OS.Notifications.requestPermission();
+    } else {
+      p = Notification.permission === "default" ? Notification.requestPermission() : Promise.resolve();
+    }
+    return Promise.resolve(p).catch(function () {}).then(function () {
+      if (Notification.permission === "denied") { notify(); return false; }
+      if (Notification.permission !== "granted") { notify(); say("Alertes non activées."); return false; }
+      setFlag();
       return new Promise(function (res) {
-        var tries = 0;
-        (function finish() {
-          if (OS) { Promise.resolve(OS.User.PushSubscription.optIn()).catch(function () {}).then(function () { setTimeout(function () { notify(); res(true); }, 800); }); return; }
-          if (++tries > 20) { notify(); say("Autorisation enregistrée. L'abonnement se finalisera à la prochaine ouverture de l'appli."); res(true); return; }
-          setTimeout(finish, 500);
+        var n = 0;
+        (function wait() {
+          notify();
+          if (optedIn()) { say(""); res(true); return; }
+          if (++n > 20) { say(OS ? "Presque fini : touchez encore une fois le bouton pour terminer." : "Autorisation enregistrée. Rouvrez l'appli pour terminer l'abonnement."); res(false); return; }
+          setTimeout(wait, 500);
         })();
       });
-    }).catch(function () { say("Activation impossible pour le moment. Réessayez dans un instant."); return false; });
+    });
   }
   window.OneSignalDeferred = window.OneSignalDeferred || [];
   OneSignalDeferred.push(function (O) { OS = O; notify(); try { O.User.PushSubscription.addEventListener("change", notify); } catch (e) {} });
@@ -143,7 +151,7 @@
       var waited = 0;
       (function check() {
         if (OS) {
-          if (!optedIn()) Promise.resolve(OS.User.PushSubscription.optIn()).catch(function () {}).then(function () { setTimeout(function () { if (!optedIn()) show(false); notify(); }, 1500); });
+          if (!optedIn()) show(false);
           return;
         }
         if ((waited += 500) < 10000) setTimeout(check, 500); else show(false);
