@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="assets/style.css">
 <script src="assets/ui.js" defer></script>
 <script src="assets/app.js" defer></script>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script><script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){await OneSignal.init({appId:"7a9ac6d3-6447-4312-8d8b-02bbcdf13915",safari_web_id:"web.onesignal.auto.458f9dc8-6677-4788-b5a2-9d66a9d7a179",serviceWorkerPath:"sw.js",serviceWorkerParam:{scope:"/"},notifyButton:{enable:false}});document.dispatchEvent(new CustomEvent("rbba:onesignal"));});</script>
 </head>
 <body data-page="appli">
 <a class="skip" href="#main">Aller au contenu</a>
@@ -70,6 +71,13 @@
       <div class="tuto-card" id="android"><svg class="phone" viewBox="0 0 200 380" role="img" aria-labelledby="t-and"><title id="t-and">Android dans Chrome : le menu à trois points est en haut à droite.</title><rect class="ph-bg" width="200" height="380" rx="18"/><rect class="ph-ui" x="12" y="14" width="150" height="22" rx="11"/><text class="ph-tx" x="87" y="29" font-size="10" text-anchor="middle">roiselbasketball.fr</text><circle cx="180" cy="19" r="2.4" fill="#FFF"/><circle cx="180" cy="25" r="2.4" fill="#FFF"/><circle cx="180" cy="31" r="2.4" fill="#FFF"/><circle class="hl" cx="180" cy="25" r="14"/><rect class="ph-ui" x="12" y="50" width="176" height="90"/><rect class="ph-ui" x="12" y="150" width="120" height="10"/><rect class="ph-ui" x="12" y="168" width="150" height="10"/></svg><div><h3>Android</h3><ol class="steps"><li>Ouvrir le site dans Chrome</li><li>Toucher le menu ⋮<span>En haut à droite</span></li><li>« Installer l'application »</li><li>Confirmer</li></ol></div></div>
     </div>
   </section>
+<section class="block wrap alerts" id="alertes" aria-labelledby="h-al">
+  <div class="alerts-box">
+    <div><h2 id="h-al">Alertes de match</h2><p>Une notification le jour du match, le score final, et chaque nouveau post Instagram du club. Gratuit, désactivable à tout moment.</p>
+    <p class="alerts-ios" hidden>Sur iPhone : installez d'abord l'appli (bouton « Installer l'appli » en haut), ouvrez-la depuis l'écran d'accueil, puis revenez ici.</p></div>
+    <div class="alerts-act"><button class="btn" type="button" id="alerts-btn">Recevoir les alertes</button><p class="alerts-status" role="status" aria-live="polite"></p></div>
+  </div>
+</section>
   <section class="block wrap" id="agenda" aria-labelledby="h-ag">
     <div class="head"><h2 id="h-ag">Les matchs dans votre agenda</h2></div>
     <div class="tuto">

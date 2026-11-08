@@ -52,6 +52,13 @@ jobs:
           echo "code=$code" >> "$GITHUB_OUTPUT"
           [ "$code" = "1" ] && exit 1 || exit 0
 
+      - name: Alertes de match (notifications)
+        continue-on-error: true
+        env:
+          ONESIGNAL_REST_KEY: ${{ secrets.ONESIGNAL_REST_KEY }}
+          RBBA_SITE_URL: ${{ vars.RBBA_SITE_URL || 'https://roiselbasketball.fr' }}
+        run: python scripts/notify.py
+
       - name: Enregistrer les données si elles ont changé
         id: commit
         run: |

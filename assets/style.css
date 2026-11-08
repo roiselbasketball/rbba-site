@@ -426,3 +426,13 @@ table.std tr.me td:first-child{box-shadow:none}
 .a11y,.install-help{border-top:1px solid var(--line)}
 .sponsors h3{letter-spacing:.02em}
 .brand small{letter-spacing:0}
+
+/* Alertes de match */
+.alerts-box{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justify-content:space-between;border:1px solid var(--line);padding:28px clamp(18px,4vw,36px);background:var(--white,#fff)}
+.alerts-box>div:first-child{flex:1 1 380px;min-width:0}
+.alerts-box h2{margin:0 0 8px}
+.alerts-box p{margin:0;max-width:60ch;color:var(--mute)}
+.alerts-box .alerts-ios{margin-top:10px;color:var(--text)}
+.alerts-act{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.alerts-status{font-size:.92rem}
+.alerts-box .btn[aria-pressed="true"]{background:var(--black);border-color:var(--black);color:#fff}

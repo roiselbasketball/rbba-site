@@ -20,6 +20,7 @@ INSTAGRAM = "https://www.instagram.com/roiselbasketball/"
 FACEBOOK = "https://www.facebook.com/share/18sTYZXxJF/"
 # Flux Instagram (Behold) : identifiant du flux
 BEHOLD = "quMGqyDE08fF7hLVtnYc"
+ONESIGNAL_APP = "7a9ac6d3-6447-4312-8d8b-02bbcdf13915"
 IG_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>'
 FB_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8v3h2.6V21h2.9z"/></svg>'
 
@@ -34,6 +35,26 @@ def social():
         feed = (f'<div class="ig-feed"><behold-widget feed-id="{BEHOLD}"></behold-widget></div>'
                 '<script>(()=>{if(window.__bhldScript)return;window.__bhldScript=true;const d=document,s=d.createElement("script");s.type="module";s.src="https://w.behold.so/widget.js";setTimeout(()=>{d.head.append(s);},0);})();</script>')
     return '<section class="block wrap" id="reseaux" aria-labelledby="h-soc"><div class="head"><h2 id="h-soc">Suivez le RBBA</h2>' + (f'<a class="more" href="{INSTAGRAM}" target="_blank" rel="noopener">@roiselbasketball</a>' if INSTAGRAM else "") + '</div>' + feed + '<div class="social-links">' + "".join(links) + "</div></section>"
+
+
+def onesignal():
+    if not ONESIGNAL_APP: return ""
+    return ('<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>'
+            '<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){'
+            f'await OneSignal.init({{appId:"{ONESIGNAL_APP}",safari_web_id:"web.onesignal.auto.458f9dc8-6677-4788-b5a2-9d66a9d7a179",'
+            'serviceWorkerPath:"sw.js",serviceWorkerParam:{scope:"/"},notifyButton:{enable:false}});'
+            'document.dispatchEvent(new CustomEvent("rbba:onesignal"));});</script>')
+
+
+def alerts():
+    if not ONESIGNAL_APP: return ""
+    return '''<section class="block wrap alerts" id="alertes" aria-labelledby="h-al">
+  <div class="alerts-box">
+    <div><h2 id="h-al">Alertes de match</h2><p>Une notification le jour du match, le score final, et chaque nouveau post Instagram du club. Gratuit, désactivable à tout moment.</p>
+    <p class="alerts-ios" hidden>Sur iPhone : installez d'abord l'appli (bouton « Installer l'appli » en haut), ouvrez-la depuis l'écran d'accueil, puis revenez ici.</p></div>
+    <div class="alerts-act"><button class="btn" type="button" id="alerts-btn">Recevoir les alertes</button><p class="alerts-status" role="status" aria-live="polite"></p></div>
+  </div>
+</section>'''
 
 
 def head(title, desc, p=""):
@@ -54,6 +75,7 @@ def head(title, desc, p=""):
 <link rel="stylesheet" href="{p}assets/style.css">
 <script src="{p}assets/ui.js" defer></script>
 <script src="{p}assets/app.js" defer></script>
+{onesignal()}
 </head>
 '''
 
@@ -164,6 +186,7 @@ def home():
   </div>
 
   {social()}
+  {alerts()}
 
   <section class="block wrap" id="licences" aria-labelledby="h-lic">
     <div class="head"><h2 id="h-lic">Licences 2026-2027</h2></div>
@@ -243,6 +266,7 @@ def appli():
       <div class="tuto-card" id="android">{andr}<div><h3>Android</h3><ol class="steps"><li>Ouvrir le site dans Chrome</li><li>Toucher le menu ⋮<span>En haut à droite</span></li><li>« Installer l'application »</li><li>Confirmer</li></ol></div></div>
     </div>
   </section>
+{alerts()}
   <section class="block wrap" id="agenda" aria-labelledby="h-ag">
     <div class="head"><h2 id="h-ag">Les matchs dans votre agenda</h2></div>
     <div class="tuto">
@@ -267,7 +291,7 @@ def legal():
     <h2>Éditeur</h2><p>Roisel Basketball (RBBA), association loi 1901. Siège : [adresse], 80240 Roisel. RNA : [à compléter]. Contact : roiselbasketball@gmail.com · 06 16 01 67 65.</p>
     <h2>Directeur de la publication</h2><p>Le président de l'association.</p>
     <h2>Hébergeur</h2><p>[À compléter lors de la mise en ligne.]</p>
-    <h2 id="confidentialite">Confidentialité</h2><p>Aucun cookie de suivi. Mesure d'audience anonyme. Les données des formulaires servent uniquement à répondre aux demandes. Accès, rectification, suppression : roiselbasketball@gmail.com.</p>
+    <h2 id="confidentialite">Confidentialité</h2><p>Aucun cookie de suivi. Mesure d'audience anonyme. Les alertes de match passent par le service OneSignal : elles ne sont envoyées qu'aux personnes qui les ont acceptées, et se désactivent dans les réglages du téléphone ou du navigateur. Les données des formulaires servent uniquement à répondre aux demandes. Accès, rectification, suppression : roiselbasketball@gmail.com.</p>
     <h2>Droit à l'image</h2><p>Photos publiées avec l'autorisation écrite des licenciés, et de leurs représentants légaux pour les mineurs. Retrait sur simple demande.</p>
     <h2 id="accessibilite">Accessibilité</h2><p>Objectif : conformité RGAA niveau AA. Le bouton Accessibilité, en haut de chaque page, agrandit le texte, coupe les animations et renforce les contrastes. Signaler un problème : roiselbasketball@gmail.com.</p>
     <h2>Données sportives</h2><p>Calendriers, résultats et classements : données publiques de la FFBB.</p>
