@@ -99,6 +99,13 @@ def message_score(m: dict) -> tuple[str, str]:
     return titre, corps
 
 
+def load(path: Path, default):
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return default
+
+
 LOG = DATA / "notify_log.json"
 
 
