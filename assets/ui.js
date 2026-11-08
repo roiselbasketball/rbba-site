@@ -180,6 +180,7 @@
         });
       });
       document.body.appendChild(el);
+      listeners.push(function (s2) { if (s2 === "on" && el.isConnected) { st.textContent = "C'est bon, à samedi au gymnase !"; setTimeout(close, 1600); } });
       setTimeout(function () { el.classList.add("open"); el.querySelector("button").focus({ preventScroll: true }); }, 1500);
     }
   }
