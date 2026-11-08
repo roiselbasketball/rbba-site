@@ -4,5 +4,11 @@
   "titre": "Match de la semaine",
   "resultat": 200,
   "reponse": "{\"id\":\"\",\"errors\":[\"All included players are not subscribed\"]}"
+ },
+ {
+  "quand": "2026-11-08T20:30:15+01:00",
+  "titre": "Match de la semaine",
+  "resultat": 200,
+  "reponse": "{\"id\":\"91b88c45-54cd-4f88-aa5e-514cc684393f\",\"external_id\":null}"
  }
 ]
