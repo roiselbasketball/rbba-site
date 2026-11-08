@@ -23,5 +23,12 @@
   "resultat": 200,
   "reponse": "{\"id\":\"383e4011-84cb-46b6-8ef3-2a7089d7947c\",\"external_id\":null}",
   "cible": "nouveaux abonnés"
+ },
+ {
+  "quand": "2026-11-09T00:48:03+01:00",
+  "titre": "🏀 Match samedi à Bray-sur-Somme",
+  "resultat": 200,
+  "reponse": "{\"id\":\"e1716711-5f0a-4d66-886f-dc3c456a3390\",\"external_id\":null}",
+  "cible": "nouveaux abonnés"
  }
 ]
