@@ -55,53 +55,87 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();
 
-/* Alertes de match (OneSignal) : bouton « Recevoir les alertes » */
+/* Alertes de match (OneSignal) : bouton « Recevoir les alertes » + proposition à l'ouverture de l'appli installée */
 (function () {
-  function boot() {
+  var OS = null, listeners = [];
+  var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+  var supported = ("Notification" in window) && ("serviceWorker" in navigator);
+  function optedIn() { try { return !!(OS && OS.User.PushSubscription.optedIn); } catch (e) { return false; } }
+  function state() {
+    if (!supported) return "unsupported";
+    if (Notification.permission === "denied") return "denied";
+    if (Notification.permission === "granted" && (OS ? optedIn() : true)) return "on";
+    return "off";
+  }
+  function notify() { listeners.forEach(function (f) { f(state()); }); }
+  // À appeler directement depuis un toucher (iPhone l'exige)
+  function enable(say) {
+    say = say || function () {};
+    if (!supported) { say("Ce téléphone ne gère pas les notifications."); return Promise.resolve(false); }
+    say("Demande en cours…");
+    var ask = Notification.permission === "default" ? Notification.requestPermission() : Promise.resolve(Notification.permission);
+    return Promise.resolve(ask).then(function (perm) {
+      if (perm !== "granted") { notify(); if (perm !== "denied") say("Alertes non activées."); return false; }
+      say("Activation…");
+      return new Promise(function (res) {
+        var tries = 0;
+        (function finish() {
+          if (OS) { Promise.resolve(OS.User.PushSubscription.optIn()).catch(function () {}).then(function () { setTimeout(function () { notify(); res(true); }, 800); }); return; }
+          if (++tries > 20) { notify(); say("Autorisation enregistrée. L'abonnement se finalisera à la prochaine ouverture de l'appli."); res(true); return; }
+          setTimeout(finish, 500);
+        })();
+      });
+    }).catch(function () { say("Activation impossible pour le moment. Réessayez dans un instant."); return false; });
+  }
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(function (O) { OS = O; notify(); try { O.User.PushSubscription.addEventListener("change", notify); } catch (e) {} });
+
+  // Bloc « Alertes de match » (accueil, page appli)
+  function block() {
     var btn = document.getElementById("alerts-btn"); if (!btn) return;
     var status = document.querySelector(".alerts-status"), iosNote = document.querySelector(".alerts-ios");
-    var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    var standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
-    var OS = null;
     function say(t) { if (status) status.textContent = t; }
-    function optedIn() { try { return !!(OS && OS.User.PushSubscription.optedIn); } catch (e) { return false; } }
-    function refresh() {
-      if (!("Notification" in window)) return;
-      if (Notification.permission === "denied") { btn.textContent = "Alertes bloquées"; say("Les notifications sont bloquées pour ce site. Sur iPhone : Réglages > Notifications > RBBA. Sur Android : appui long sur l'appli > Infos > Notifications."); return; }
-      var on = Notification.permission === "granted" && (OS ? optedIn() : true);
-      btn.textContent = on ? "Alertes activées" : "Recevoir les alertes";
-      btn.setAttribute("aria-pressed", on ? "true" : "false");
-      say(on ? "C'est bon : vous recevrez les alertes du RBBA." : "");
-    }
     if (ios && !standalone) {
       if (iosNote) iosNote.hidden = false;
       btn.textContent = "Installer l'appli d'abord";
       btn.addEventListener("click", function () { var b = document.querySelector(".install-btn"); if (b) b.click(); else location.href = "appli.html"; });
       return;
     }
-    if (!("Notification" in window) || !("serviceWorker" in navigator)) { btn.disabled = true; say("Ce navigateur ne gère pas les notifications. Sur iPhone, il faut iOS 16.4 ou plus récent et l'appli installée."); return; }
-    refresh();
+    if (!supported) { btn.disabled = true; say("Ce navigateur ne gère pas les notifications. Sur iPhone, il faut iOS 16.4 ou plus récent et l'appli installée."); return; }
+    function render(st) {
+      if (st === "denied") { btn.textContent = "Alertes bloquées"; say("Les notifications sont bloquées pour ce site. Sur iPhone : Réglages > Notifications > RBBA. Sur Android : appui long sur l'appli > Infos > Notifications."); return; }
+      btn.textContent = st === "on" ? "Alertes activées" : "Recevoir les alertes";
+      btn.setAttribute("aria-pressed", st === "on" ? "true" : "false");
+      say(st === "on" ? "C'est bon : vous recevrez les alertes du RBBA." : "");
+    }
+    listeners.push(render); render(state());
     btn.addEventListener("click", function () {
-      if (optedIn()) { say("Pour couper les alertes : réglages de notifications du téléphone."); return; }
-      say("Demande en cours…");
-      // Demande native immédiate (iPhone exige qu'elle parte directement du toucher)
-      var ask = Notification.permission === "default" ? Notification.requestPermission() : Promise.resolve(Notification.permission);
-      Promise.resolve(ask).then(function (perm) {
-        if (perm !== "granted") { refresh(); if (perm !== "denied") say("Alertes non activées."); return; }
-        say("Activation…");
-        var tries = 0;
-        (function finish() {
-          if (OS) { Promise.resolve(OS.User.PushSubscription.optIn()).catch(function () {}).then(function () { setTimeout(refresh, 800); }); return; }
-          if (++tries > 20) { say("Autorisation enregistrée. L'abonnement se finalisera à la prochaine ouverture de l'appli."); return; }
-          setTimeout(finish, 500);
-        })();
-      }).catch(function () { say("Activation impossible pour le moment. Réessayez dans un instant."); });
-    });
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(function (O) {
-      OS = O; refresh();
-      try { O.User.PushSubscription.addEventListener("change", refresh); } catch (e) {}
+      if (state() === "on") { say("Pour couper les alertes : réglages de notifications du téléphone."); return; }
+      enable(say);
     });
   }
+
+  // Proposition à l'ouverture de l'appli installée : « Ne manquez aucun match »
+  function sheet() {
+    if (!standalone || !supported || Notification.permission !== "default") return;
+    var KEY = "rbba-alertes-plus-tard";
+    try { var t = +localStorage.getItem(KEY); if (t && Date.now() - t < 7 * 864e5) return; } catch (e) {}
+    var el = document.createElement("div");
+    el.className = "alert-sheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-labelledby", "as-title");
+    el.innerHTML = '<div class="as-in"><img src="' + (document.querySelector(".brand img") || {}).src + '" alt="" width="44" height="40">' +
+      '<div class="as-tx"><h2 id="as-title">Ne manquez aucun match</h2><p>Le jour du match, le score final et les nouveaux posts du club, directement sur votre écran.</p><p class="as-st" role="status" aria-live="polite"></p></div>' +
+      '<div class="as-btns"><button class="btn" type="button" data-as="ok">Activer les alertes</button><button class="btn btn--out" type="button" data-as="later">Plus tard</button></div></div>';
+    var st = el.querySelector(".as-st");
+    function close() { el.classList.remove("open"); setTimeout(function () { el.remove(); }, 250); }
+    el.querySelector('[data-as="later"]').addEventListener("click", function () { try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} close(); });
+    el.querySelector('[data-as="ok"]').addEventListener("click", function () {
+      enable(function (t) { st.textContent = t; }).then(function (ok) { if (ok) { st.textContent = "C'est bon, à samedi au gymnase !"; setTimeout(close, 1600); } else if (Notification.permission === "denied") close(); });
+    });
+    document.body.appendChild(el);
+    setTimeout(function () { el.classList.add("open"); el.querySelector('[data-as="ok"]').focus({ preventScroll: true }); }, 1500);
+  }
+
+  function boot() { block(); sheet(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();

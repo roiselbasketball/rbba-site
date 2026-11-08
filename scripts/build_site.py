@@ -50,7 +50,7 @@ def alerts():
     if not ONESIGNAL_APP: return ""
     return '''<section class="block wrap alerts" id="alertes" aria-labelledby="h-al">
   <div class="alerts-box">
-    <div><h2 id="h-al">Alertes de match</h2><p>Une notification le jour du match, le score final, et chaque nouveau post Instagram du club. Gratuit, désactivable à tout moment.</p>
+    <div><h2 id="h-al">Ne manquez aucun match</h2><p>Une alerte le jour du match, le score final dès la fin de la rencontre, et chaque nouveau post Instagram du club. Gratuit, désactivable à tout moment.</p>
     <p class="alerts-ios" hidden>Sur iPhone : installez d'abord l'appli (bouton « Installer l'appli » en haut), ouvrez-la depuis l'écran d'accueil, puis revenez ici.</p></div>
     <div class="alerts-act"><button class="btn" type="button" id="alerts-btn">Recevoir les alertes</button><p class="alerts-status" role="status" aria-live="polite"></p></div>
   </div>

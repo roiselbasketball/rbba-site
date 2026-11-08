@@ -436,3 +436,13 @@ table.std tr.me td:first-child{box-shadow:none}
 .alerts-act{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .alerts-status{font-size:.92rem}
 .alerts-box .btn[aria-pressed="true"]{background:var(--black);border-color:var(--black);color:#fff}
+.alert-sheet{position:fixed;left:0;right:0;bottom:0;z-index:60;padding:0 max(12px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));transform:translateY(110%);transition:transform .25s ease}
+.alert-sheet.open{transform:none}
+.reduce-motion .alert-sheet{transition:none}
+.alert-sheet .as-in{max-width:640px;margin:0 auto;background:var(--black);color:#fff;border:1px solid var(--line-d);padding:20px;display:grid;grid-template-columns:auto 1fr;gap:12px 16px;align-items:start}
+.alert-sheet h2{margin:0 0 4px;font-size:1.5rem;color:#fff}
+.alert-sheet p{margin:0;color:#D9D3C7}
+.alert-sheet .as-st:empty{display:none}
+.alert-sheet .as-st{margin-top:6px;color:#fff;font-weight:600}
+.alert-sheet .as-btns{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}
+.alert-sheet .btn--out{color:#fff;border-color:var(--line-d);background:transparent}
