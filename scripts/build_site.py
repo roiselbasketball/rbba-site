@@ -42,7 +42,7 @@ def onesignal():
     return ('<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>'
             '<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){'
             f'await OneSignal.init({{appId:"{ONESIGNAL_APP}",safari_web_id:"web.onesignal.auto.458f9dc8-6677-4788-b5a2-9d66a9d7a179",'
-            'serviceWorkerPath:"sw.js",serviceWorkerParam:{scope:"/"},notifyButton:{enable:false}});'
+            'serviceWorkerPath:"sw.js",serviceWorkerParam:{scope:"/"},notifyButton:{enable:false},welcomeNotification:{title:"Alertes activées",message:"Vous ne manquerez aucun match du RBBA 🏀",url:"https://roiselbasketball.fr/"}});'
             'document.dispatchEvent(new CustomEvent("rbba:onesignal"));});</script>')
 
 
