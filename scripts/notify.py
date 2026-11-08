@@ -67,9 +67,19 @@ def load(path: Path, default):
         return default
 
 
+LOG = DATA / "notify_log.json"
+
+
+def log(entry: dict) -> None:
+    hist = load(LOG, [])
+    hist.append({"quand": datetime.now(PARIS).isoformat(timespec="seconds"), **entry})
+    LOG.write_text(json.dumps(hist[-30:], ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+
 def send(title: str, body: str, url: str, topic: str) -> bool:
     if not KEY:
         print(f"(pas de clé OneSignal) {title} : {body}")
+        log({"titre": title, "resultat": "pas de clé ONESIGNAL_REST_KEY"})
         return False
     payload = {
         "app_id": APP_ID,
@@ -90,11 +100,14 @@ def send(title: str, body: str, url: str, topic: str) -> bool:
     )
     try:
         with urllib.request.urlopen(req, timeout=20) as r:
-            print("envoyé :", title, "|", r.status, r.read()[:200])
+            rep = r.read()[:400].decode("utf-8", "replace")
+            print("envoyé :", title, "|", r.status, rep)
+            log({"titre": title, "resultat": r.status, "reponse": rep})
             return True
     except Exception as e:
         detail = getattr(e, "read", lambda: b"")()[:300]
         print("échec d'envoi :", title, e, detail, file=sys.stderr)
+        log({"titre": title, "resultat": f"échec {e}", "reponse": detail.decode("utf-8", "replace") if isinstance(detail, bytes) else str(detail)})
         return False
 
 
