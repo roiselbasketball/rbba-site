@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-08T17:54:21.810017+01:00",
+  "miseAJour": "2026-11-08T18:56:57.882808+01:00",
   "poules": [
     {
       "pouleId": 200000003057512,
@@ -79,7 +79,7 @@
           "pointsContre": 141,
           "difference": -31,
           "points": 3,
-          "evolution": 1
+          "evolution": 0
         },
         {
           "logo": "assets/clubs/montdidier.png",
@@ -94,7 +94,7 @@
           "pointsContre": 182,
           "difference": -43,
           "points": 3,
-          "evolution": -1
+          "evolution": 0
         }
       ],
       "source": "ffbb",
