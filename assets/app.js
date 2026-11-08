@@ -200,6 +200,7 @@
     }
     (function loop() { load().then(function (live) { setTimeout(loop, live ? 60e3 : 600e3); }); })();
   }
-  if ("serviceWorker" in navigator && location.protocol === "https:" && !/claude|artifact/.test(location.hostname)) navigator.serviceWorker.register(new URL("sw.js", ROOT).href).catch(function () {});
+  // Le service worker est enregistré par OneSignal (même fichier sw.js, avec son identifiant) ; sinon on l'enregistre nous-mêmes.
+  if ("serviceWorker" in navigator && location.protocol === "https:" && !/claude|artifact/.test(location.hostname) && !window.OneSignalDeferred) navigator.serviceWorker.register(new URL("sw.js", ROOT).href).catch(function () {});
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();

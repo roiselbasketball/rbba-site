@@ -65,7 +65,7 @@
   function state() {
     if (!supported) return "unsupported";
     if (Notification.permission === "denied") return "denied";
-    if (Notification.permission === "granted" && (OS ? optedIn() : true)) return "on";
+    if (Notification.permission === "granted" && optedIn()) return "on";
     return "off";
   }
   function notify() { listeners.forEach(function (f) { f(state()); }); }
@@ -125,11 +125,14 @@
     try { if (sessionStorage.getItem(KEY)) return; } catch (e) {}
     var denied = Notification.permission === "denied";
     if (Notification.permission === "granted") {
-      // Autorisé mais peut-être pas encore abonné : on vérifie quand OneSignal est prêt
+      // Autorisé mais peut-être pas encore abonné : on finalise sans redemander
       var waited = 0;
       (function check() {
-        if (OS) { if (!optedIn()) show(false); return; }
-        if ((waited += 500) < 8000) setTimeout(check, 500);
+        if (OS) {
+          if (!optedIn()) Promise.resolve(OS.User.PushSubscription.optIn()).catch(function () {}).then(function () { setTimeout(function () { if (!optedIn()) show(false); notify(); }, 1500); });
+          return;
+        }
+        if ((waited += 500) < 10000) setTimeout(check, 500); else show(false);
       })();
       return;
     }
