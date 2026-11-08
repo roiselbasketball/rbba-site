@@ -46,25 +46,57 @@ def heure(ko: datetime) -> str:
     return f"{ko.hour}h" if ko.minute == 0 else f"{ko.hour}h{ko.minute:02d}"
 
 
-def phrase(m: dict, ko: datetime, quand: str) -> str:
-    """« Nos seniors se déplacent à Bray-sur-Somme ce samedi 14 novembre à 21h … Adresse : … »"""
-    dom, ext = nice(m.get("equipeDomicile")), nice(m.get("equipeExterieur"))
-    lieu = (m.get("lieu") or "").strip()
-    coupe = " en coupe" if "coupe" in (m.get("competition") or "").lower() else ""
-    if m.get("rbbaADomicile"):
-        txt = f"Nos seniors reçoivent {ext}{coupe} {quand} à {heure(ko)}."
-        return txt + (f" Rendez-vous au {lieu}." if lieu else "")
-    ville = re.search(r"\d{5}\s+(.+)$", lieu)
-    ou = f"à {ville.group(1)}" if ville else f"chez {dom}"
-    txt = f"Nos seniors se déplacent {ou}{coupe} {quand} à {heure(ko)} pour affronter {dom}."
-    return txt + (f" Adresse : {lieu}." if lieu else "")
+def court(n: str) -> str:
+    """Nom d'équipe pour une notification : RBBA pour nous, nom FFBB lisible pour les autres."""
+    return "RBBA" if "roisel" in n.lower() else n
 
 
-def load(path: Path, default):
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        return default
+def affiche(m: dict) -> str:
+    """« Bray Basket Ball reçoit le RBBA » / « Le RBBA reçoit Basket Ball Neslois » (domicile en premier)."""
+    dom, ext = court(nice(m.get("equipeDomicile"))), court(nice(m.get("equipeExterieur")))
+    if dom == "RBBA":
+        return f"Le RBBA reçoit {ext}"
+    return f"{dom} reçoit le RBBA"
+
+
+def ville(m: dict) -> str:
+    v = re.search(r"\d{5}\s+(.+)$", m.get("lieu") or "")
+    return v.group(1) if v else ""
+
+
+def adresse(m: dict) -> str:
+    """« 📍 48 Rue de Cambrai, Roisel » : rue et ville, sans code postal."""
+    parts = [x.strip() for x in (m.get("lieu") or "").split(",") if x.strip()]
+    if not parts:
+        return ""
+    rue = parts[1] if len(parts) > 2 else ""
+    v = ville(m) or (parts[-1] if len(parts) > 1 else "")
+    return "📍 " + ", ".join(x for x in (rue, v) if x)
+
+
+def message_semaine(m: dict, ko: datetime) -> tuple[str, str]:
+    jour = JOURS[ko.weekday()]
+    ou = "au Gymnase de Roisel" if m.get("rbbaADomicile") else (f"à {ville(m)}" if ville(m) else "à l'extérieur")
+    coupe = " de coupe" if "coupe" in (m.get("competition") or "").lower() else ""
+    titre = f"🏀 Match{coupe} {jour} {ou}"
+    corps = f"{affiche(m)} · {heure(ko)}\n{adresse(m)}".strip()
+    return titre, corps
+
+
+def message_jour(m: dict, ko: datetime) -> tuple[str, str]:
+    quand = "ce soir" if ko.hour >= 18 else "aujourd'hui"
+    titre = "🔥 C'est jour de match"
+    corps = f"{affiche(m)} · {quand} {heure(ko)}\n{adresse(m)}".strip()
+    return titre, corps
+
+
+def message_score(m: dict) -> tuple[str, str]:
+    dom, ext = court(nice(m.get("equipeDomicile"))), court(nice(m.get("equipeExterieur")))
+    s1, s2 = m["scoreDomicile"], m["scoreExterieur"]
+    rb, adv = (s1, s2) if m.get("rbbaADomicile") else (s2, s1)
+    titre = "✅ Victoire du RBBA" if rb > adv else ("Match nul" if rb == adv else "Défaite du RBBA")
+    corps = f"{dom} {s1} · {ext} {s2}\nRésumé et classement sur le site"
+    return titre, corps
 
 
 LOG = DATA / "notify_log.json"
@@ -149,8 +181,7 @@ def main() -> None:
             if first:
                 done.add(k)
             elif now.weekday() == 2 and now.hour >= 18:
-                quand = f"ce {JOURS[ko.weekday()]} {ko.day} {MOIS[ko.month - 1]}"
-                send("Match de la semaine", phrase(m, ko, quand), url, f"semaine-{m['id']}")
+                send(*message_semaine(m, ko), url, f"semaine-{m['id']}")
                 done.add(k)
 
         # Jour de match (à partir de 10 h, jusqu'au coup d'envoi)
@@ -159,8 +190,7 @@ def main() -> None:
             if first or now >= ko:
                 done.add(k)
             elif now.hour >= 10:
-                quand = "ce soir" if ko.hour >= 18 else "aujourd'hui"
-                send("C'est jour de match", phrase(m, ko, quand), url, f"jour-{m['id']}")
+                send(*message_jour(m, ko), url, f"jour-{m['id']}")
                 done.add(k)
 
         # Score final (dans les 2 jours suivant le match)
@@ -169,11 +199,7 @@ def main() -> None:
             if first or now - ko > timedelta(days=2):
                 done.add(k)
             else:
-                s1, s2 = m["scoreDomicile"], m["scoreExterieur"]
-                rb, adv = (s1, s2) if m.get("rbbaADomicile") else (s2, s1)
-                titre = "Victoire du RBBA" if rb > adv else ("Match nul" if rb == adv else "Défaite du RBBA")
-                txt = f"{dom} {s1}, {ext} {s2}. Le résumé et le classement sur le site."
-                send(titre, txt, url, f"score-{m['id']}")
+                send(*message_score(m), url, f"score-{m['id']}")
                 done.add(k)
 
     # Envoi de test : data/notify_test.json {"titre": …, "texte": …} puis suppression
@@ -198,8 +224,8 @@ def main() -> None:
         p = nouveaux[0]
         legende = re.sub(r"\s+", " ", (p.get("prunedCaption") or p.get("caption") or "")).strip()
         legende = re.sub(r"#\w+", "", legende).strip()
-        txt = (legende[:110] + "…") if len(legende) > 110 else (legende or "Nouvelle publication du club.")
-        send("Nouveau post Instagram", txt, p.get("permalink") or "https://www.instagram.com/roiselbasketball/", "instagram")
+        txt = (legende[:110] + "…") if len(legende) > 110 else (legende or "Une nouvelle publication sur Instagram.")
+        send("📸 Nouveau post du RBBA", txt, p.get("permalink") or "https://www.instagram.com/roiselbasketball/", "instagram")
     seen.update(str(p["id"]) for p in posts)
 
     new_state = {"envoyes": sorted(done)[-400:], "instagram": sorted(seen)[-200:], "maj": now.isoformat(timespec="minutes")}
