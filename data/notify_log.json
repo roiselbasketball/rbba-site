@@ -43,5 +43,17 @@
   "titre": "🏀 Match samedi à Bray-sur-Somme",
   "resultat": 200,
   "reponse": "{\"id\":\"fc417906-4a94-4e80-98ae-552415350700\",\"external_id\":null}"
+ },
+ {
+  "quand": "2026-11-14T10:19:33+01:00",
+  "titre": "🔥 C'est jour de match",
+  "resultat": 200,
+  "reponse": "{\"id\":\"d6bbab09-d235-4396-ab6c-cc2db193d4b9\",\"external_id\":null}"
+ },
+ {
+  "quand": "2026-11-14T10:19:33+01:00",
+  "titre": "📸 Nouveau post du RBBA",
+  "resultat": 200,
+  "reponse": "{\"id\":\"516ec2cc-b6b7-4429-b461-91cf5d115662\",\"external_id\":null}"
  }
 ]
