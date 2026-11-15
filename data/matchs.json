@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-15T04:46:49.718059+01:00",
+  "miseAJour": "2026-11-15T06:37:29.680025+01:00",
   "matchs": [
     {
       "id": "200000014668297",
@@ -61,9 +61,9 @@
       "logoDomicile": "data/logos/200000002676314.png",
       "logoExterieur": null,
       "coupEnvoi": "2026-11-14T21:00:00+01:00",
-      "joue": false,
-      "scoreDomicile": null,
-      "scoreExterieur": null,
+      "joue": true,
+      "scoreDomicile": 81,
+      "scoreExterieur": 60,
       "lieu": "Salle Omnisports de Bray s/Somme, Rue du Pres Baudet, 80340 Bray-sur-Somme",
       "itineraire": {
         "google": "https://www.google.com/maps/dir/?api=1&destination=Salle%20Omnisports%20de%20Bray%20s/Somme%2C%20Rue%20du%20Pres%20Baudet%2C%2080340%20Bray-sur-Somme",
