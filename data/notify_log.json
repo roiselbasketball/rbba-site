@@ -61,5 +61,11 @@
   "titre": "Défaite du RBBA",
   "resultat": 200,
   "reponse": "{\"id\":\"be4a8111-3cc2-4034-be26-9ae3be2cbd45\",\"external_id\":null}"
+ },
+ {
+  "quand": "2026-11-15T07:36:12+01:00",
+  "titre": "📸 Nouveau post du RBBA",
+  "resultat": 200,
+  "reponse": "{\"id\":\"24fe09a1-ce70-4735-8444-3700a43b54b8\",\"external_id\":null}"
  }
 ]
