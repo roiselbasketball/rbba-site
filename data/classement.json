@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-15T00:55:20.051019+01:00",
+  "miseAJour": "2026-11-15T01:57:01.027512+01:00",
   "poules": [
     {
       "pouleId": 200000003057512,
@@ -34,7 +34,7 @@
           "pointsContre": 95,
           "difference": 35,
           "points": 4,
-          "evolution": 1
+          "evolution": 0
         },
         {
           "logo": "assets/clubs/albert.png",
@@ -49,7 +49,7 @@
           "pointsContre": 198,
           "difference": -16,
           "points": 4,
-          "evolution": -1
+          "evolution": 0
         },
         {
           "logo": "data/logos/11976.png",
@@ -64,7 +64,7 @@
           "pointsContre": 77,
           "difference": -20,
           "points": 3,
-          "evolution": 1
+          "evolution": 0
         },
         {
           "logo": "data/logos/200000002676314.png",
@@ -79,7 +79,7 @@
           "pointsContre": 141,
           "difference": -31,
           "points": 3,
-          "evolution": 1
+          "evolution": 0
         },
         {
           "logo": "assets/clubs/montdidier.png",
@@ -94,7 +94,7 @@
           "pointsContre": 182,
           "difference": -43,
           "points": 3,
-          "evolution": -2
+          "evolution": 0
         }
       ],
       "source": "ffbb",
