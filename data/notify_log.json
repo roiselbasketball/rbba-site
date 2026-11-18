@@ -73,5 +73,11 @@
   "titre": "🏀 Match samedi au Gymnase de Roisel",
   "resultat": "échec The read operation timed out",
   "reponse": ""
+ },
+ {
+  "quand": "2026-11-18T18:44:50+01:00",
+  "titre": "🏀 Match samedi au Gymnase de Roisel",
+  "resultat": 200,
+  "reponse": "{\"id\":\"ad933d0d-e384-477d-845e-50f9385981ab\",\"external_id\":null}"
  }
 ]
