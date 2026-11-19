@@ -79,5 +79,11 @@
   "titre": "🏀 Match samedi au Gymnase de Roisel",
   "resultat": 200,
   "reponse": "{\"id\":\"ad933d0d-e384-477d-845e-50f9385981ab\",\"external_id\":null}"
+ },
+ {
+  "quand": "2026-11-19T05:47:12+01:00",
+  "titre": "📸 Nouveau post du RBBA",
+  "resultat": 200,
+  "reponse": "{\"id\":\"dcc9d6e1-e3a0-4ccc-8e61-d0e40668656f\",\"external_id\":null}"
  }
 ]
