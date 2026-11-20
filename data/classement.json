@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-20T12:22:13.252764+01:00",
+  "miseAJour": "2026-11-20T13:23:27.799590+01:00",
   "poules": [
     {
       "pouleId": 200000003057512,
@@ -120,7 +120,7 @@
           "difference": 20,
           "rang": 1,
           "logo": null,
-          "evolution": 1
+          "evolution": 0
         },
         {
           "equipe": "BASKET BALL MONTDIDERIEN",
@@ -135,7 +135,7 @@
           "difference": -20,
           "rang": 2,
           "logo": "assets/clubs/montdidier.png",
-          "evolution": 2
+          "evolution": 0
         },
         {
           "equipe": "AMICALE NIEVRE BASKET BALL",
@@ -150,7 +150,7 @@
           "difference": 0,
           "rang": 3,
           "logo": null,
-          "evolution": -2
+          "evolution": 0
         },
         {
           "equipe": "BASKET BALL CLUB DU CONTYNOIS",
@@ -165,7 +165,7 @@
           "difference": 0,
           "rang": 4,
           "logo": null,
-          "evolution": -1
+          "evolution": 0
         },
         {
           "equipe": "BASKET BALL NESLOIS",
