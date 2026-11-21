@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-21T02:20:32.188816+01:00",
+  "miseAJour": "2026-11-21T03:24:38.010297+01:00",
   "poules": [
     {
       "pouleId": 200000003057512,
@@ -108,6 +108,36 @@
       "poule": "Poule A",
       "lignes": [
         {
+          "equipe": "AMIENS SPORTING CLUB BASKET BALL",
+          "estRBBA": false,
+          "joues": 1,
+          "victoires": 1,
+          "defaites": 0,
+          "forfaits": 0,
+          "pointsPour": 20,
+          "pointsContre": 0,
+          "points": 2,
+          "difference": 20,
+          "rang": 1,
+          "logo": null,
+          "evolution": 1
+        },
+        {
+          "equipe": "BASKET BALL MONTDIDERIEN",
+          "estRBBA": false,
+          "joues": 1,
+          "victoires": 0,
+          "defaites": 1,
+          "forfaits": 0,
+          "pointsPour": 0,
+          "pointsContre": 20,
+          "points": 1,
+          "difference": -20,
+          "rang": 2,
+          "logo": "assets/clubs/montdidier.png",
+          "evolution": 2
+        },
+        {
           "equipe": "AMICALE NIEVRE BASKET BALL",
           "estRBBA": false,
           "joues": 0,
@@ -118,24 +148,9 @@
           "pointsContre": 0,
           "points": 0,
           "difference": 0,
-          "rang": 1,
+          "rang": 3,
           "logo": null,
-          "evolution": 2
-        },
-        {
-          "equipe": "AMIENS SPORTING CLUB BASKET BALL",
-          "estRBBA": false,
-          "joues": 0,
-          "victoires": 0,
-          "defaites": 0,
-          "forfaits": 0,
-          "pointsPour": 0,
-          "pointsContre": 0,
-          "points": 0,
-          "difference": 0,
-          "rang": 2,
-          "logo": null,
-          "evolution": -1
+          "evolution": -2
         },
         {
           "equipe": "BASKET BALL CLUB DU CONTYNOIS",
@@ -148,24 +163,9 @@
           "pointsContre": 0,
           "points": 0,
           "difference": 0,
-          "rang": 3,
-          "logo": null,
-          "evolution": 1
-        },
-        {
-          "equipe": "BASKET BALL MONTDIDERIEN",
-          "estRBBA": false,
-          "joues": 0,
-          "victoires": 0,
-          "defaites": 0,
-          "forfaits": 0,
-          "pointsPour": 0,
-          "pointsContre": 0,
-          "points": 0,
-          "difference": 0,
           "rang": 4,
-          "logo": "assets/clubs/montdidier.png",
-          "evolution": -2
+          "logo": null,
+          "evolution": -1
         },
         {
           "equipe": "BASKET BALL NESLOIS",
@@ -349,8 +349,8 @@
         }
       ],
       "source": "calcule",
-      "journeesJouees": 0,
-      "dernierResultat": null,
+      "journeesJouees": 1,
+      "dernierResultat": "2026-12-19T20:30:00+01:00",
       "principale": false
     }
   ]
