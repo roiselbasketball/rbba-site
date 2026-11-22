@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-22T10:31:56.055114+01:00",
+  "miseAJour": "2026-11-22T12:17:31.965213+01:00",
   "poules": [
     {
       "pouleId": 200000003057512,
@@ -34,7 +34,7 @@
           "pointsContre": 243,
           "difference": -2,
           "points": 6,
-          "evolution": 2
+          "evolution": 0
         },
         {
           "logo": "assets/clubs/albert.png",
@@ -49,7 +49,7 @@
           "pointsContre": 259,
           "difference": -13,
           "points": 6,
-          "evolution": -1
+          "evolution": 0
         },
         {
           "logo": "data/logos/200000002676314.png",
@@ -64,7 +64,7 @@
           "pointsContre": 201,
           "difference": -10,
           "points": 5,
-          "evolution": -1
+          "evolution": 0
         },
         {
           "logo": "assets/clubs/montdidier.png",
