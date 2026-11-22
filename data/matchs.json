@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-22T16:33:50.510618+01:00",
+  "miseAJour": "2026-11-22T18:18:25.332165+01:00",
   "matchs": [
     {
       "id": "200000014668297",
@@ -85,9 +85,9 @@
       "logoDomicile": null,
       "logoExterieur": "assets/clubs/nesle.png",
       "coupEnvoi": "2026-11-21T20:30:00+01:00",
-      "joue": false,
-      "scoreDomicile": null,
-      "scoreExterieur": null,
+      "joue": true,
+      "scoreDomicile": 51,
+      "scoreExterieur": 67,
       "lieu": "Gymnase de Roisel, 48 Rue de Cambrai, 80240 Roisel",
       "itineraire": {
         "google": "https://www.google.com/maps/dir/?api=1&destination=49.952727,3.103363",
