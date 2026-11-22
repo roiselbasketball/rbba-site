@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-22T07:30:06.673575+01:00",
+  "miseAJour": "2026-11-22T08:49:03.053050+01:00",
   "poules": [
     {
       "pouleId": 200000003057512,
@@ -11,34 +11,19 @@
           "rang": 1,
           "equipe": "BASKET BALL NESLOIS",
           "estRBBA": false,
-          "joues": 5,
-          "victoires": 5,
+          "joues": 4,
+          "victoires": 4,
           "defaites": 0,
           "forfaits": 0,
-          "pointsPour": 406,
-          "pointsContre": 249,
-          "difference": 157,
-          "points": 10,
+          "pointsPour": 339,
+          "pointsContre": 198,
+          "difference": 141,
+          "points": 8,
           "evolution": 0
         },
         {
-          "logo": null,
-          "rang": 2,
-          "equipe": "ROISEL BASKETBALL (BBALL)",
-          "estRBBA": true,
-          "joues": 4,
-          "victoires": 2,
-          "defaites": 2,
-          "forfaits": 0,
-          "pointsPour": 241,
-          "pointsContre": 243,
-          "difference": -2,
-          "points": 6,
-          "evolution": 2
-        },
-        {
           "logo": "assets/clubs/albert.png",
-          "rang": 3,
+          "rang": 2,
           "equipe": "USO ALBERT AVIATION",
           "estRBBA": false,
           "joues": 4,
@@ -49,11 +34,11 @@
           "pointsContre": 259,
           "difference": -13,
           "points": 6,
-          "evolution": -1
+          "evolution": 1
         },
         {
           "logo": "data/logos/200000002676314.png",
-          "rang": 4,
+          "rang": 3,
           "equipe": "BRAY BASKET BALL",
           "estRBBA": false,
           "joues": 4,
@@ -64,7 +49,22 @@
           "pointsContre": 201,
           "difference": -10,
           "points": 5,
-          "evolution": -1
+          "evolution": 1
+        },
+        {
+          "logo": null,
+          "rang": 4,
+          "equipe": "ROISEL BASKETBALL (BBALL)",
+          "estRBBA": true,
+          "joues": 3,
+          "victoires": 2,
+          "defaites": 1,
+          "forfaits": 0,
+          "pointsPour": 190,
+          "pointsContre": 176,
+          "difference": 14,
+          "points": 5,
+          "evolution": -2
         },
         {
           "logo": "assets/clubs/montdidier.png",
@@ -98,8 +98,8 @@
         }
       ],
       "source": "ffbb",
-      "journeesJouees": 12,
-      "dernierResultat": "2026-11-21T20:30:00+01:00",
+      "journeesJouees": 11,
+      "dernierResultat": "2026-11-14T21:00:00+01:00",
       "principale": true
     },
     {
