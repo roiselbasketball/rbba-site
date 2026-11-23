@@ -1,5 +1,5 @@
 {
-  "miseAJour": "2026-11-23T03:56:55.508825+01:00",
+  "miseAJour": "2026-11-23T05:03:30.545524+01:00",
   "poules": [
     {
       "pouleId": 200000003057512,
@@ -64,7 +64,7 @@
           "pointsContre": 300,
           "difference": -26,
           "points": 6,
-          "evolution": 1
+          "evolution": 0
         },
         {
           "logo": "data/logos/11976.png",
@@ -79,7 +79,7 @@
           "pointsContre": 264,
           "difference": -106,
           "points": 5,
-          "evolution": 1
+          "evolution": 0
         },
         {
           "logo": "data/logos/200000002676314.png",
@@ -94,7 +94,7 @@
           "pointsContre": 201,
           "difference": -10,
           "points": 5,
-          "evolution": -2
+          "evolution": 0
         }
       ],
       "source": "ffbb",
