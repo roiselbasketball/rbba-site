@@ -109,5 +109,11 @@
   "titre": "📸 Nouveau post du RBBA",
   "resultat": 200,
   "reponse": "{\"id\":\"822c9e03-4459-4a72-9dc5-71c230713c6c\",\"external_id\":null}"
+ },
+ {
+  "quand": "2026-11-25T00:28:26+01:00",
+  "titre": "📸 Nouveau post du RBBA",
+  "resultat": 200,
+  "reponse": "{\"id\":\"14cb45a5-e64c-4ce2-b930-de86da572cfa\",\"external_id\":null}"
  }
 ]
